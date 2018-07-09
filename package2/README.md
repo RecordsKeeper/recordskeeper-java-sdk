@@ -15,7 +15,7 @@ Import these python libraries first to get started with the library classes and 
 
 
 ```bash
-   import okhttp3.Credentials;
+import okhttp3.Credentials;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
