@@ -459,36 +459,5 @@ public class stream {
 
 
 
-   public static void main(String[] args) throws IOException, JSONException{
-	   
-	    String miningaddress = Config.getProperty("miningaddress");
-	    String stream = Config.getProperty("stream");
-	    String testdata = Config.getProperty("testdata");
-	    
-	    
-	    
-		String res1= publish(miningaddress,stream,testdata,"hello");
-	    System.out.println(res1);
-	  
-	    String res2= retrieve(stream,"eda17d62c347908ad8d59430b9d7c52b21415def3aa074c036b0543b2d50daf0" );
-	    System.out.println(res2);
-		
-	    
-	    
-	    JSONObject res3= retrieveWithAddress(stream,miningaddress);
-	    System.out.println(res3);
-	    
-	    JSONObject res4= retrieveWithKey(stream,testdata);
-	    System.out.println(res4);
-	    
-	    
-	     
-	    String res5= verifyData(stream,testdata,5);
-	    System.out.println(res5); 
-	      
-	    JSONArray res6= retrieveItems(stream,5);
-	    System.out.println(res6);
 
-  
-   }
 }   

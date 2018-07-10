@@ -225,26 +225,6 @@ public class block {
     }
 
 
-public static void main(String[] args) throws IOException, JSONException
-{
-    
-    
-    
-    JSONObject res1= blockinfo("20");
-	String x = res1.getString("blockhash");
-    System.out.println(x);
-    System.out.println(res1);
-  
-   
-    JSONArray res2= retrieveBlocks("20-30");
-    System.out.println(res2);
-    JSONObject y =res2.getJSONObject(0);
-    System.out.println(y);
-    String z= y.getString("blockhash");
-    System.out.println(z);
-   
-
-}
 
 }
 	

@@ -522,36 +522,7 @@ public class address {
 
          }
  
-  
-    public static void main(String[] args) throws IOException, JSONException{
-
-       String res2= retrieveAddress();
-       System.out.println(res2);
-       
-       String result = getaddress();
-       System.out.println(result);
-    
-       String res = getMultisigAddress(2, "miygjUPKZNV94t9f8FqNvNG9YjCkp5qqBZ, mwDbTVQcATL263JwpoE8AHCMGM5hE1kd7m, mpC8A8Fob9ADZQA7iLrctKtwzyWTx118Q9");
-       System.out.println(res);
-       
-       String res1= getMultisigWalletAddress(2,"miygjUPKZNV94t9f8FqNvNG9YjCkp5qqBZ, mwDbTVQcATL263JwpoE8AHCMGM5hE1kd7m, mpC8A8Fob9ADZQA7iLrctKtwzyWTx118Q9");
-       System.out.println(res1);
-       
-       String res3= checkifValid("miygjUPKZNV94t9f8FqNvNG9YjCkp5qqBZ");
-       System.out.println(res3);
-       
-       String res4= checkifMineAllowed("miygjUPKZNV94t9f8FqNvNG9YjCkp5qqBZ");
-       System.out.println(res4);
-       
-       int res5= checkBalance("miygjUPKZNV94t9f8FqNvNG9YjCkp5qqBZ");
-       System.out.println(res5);
-       
-       String res6= importAddress("miygjUPKZNV94t9f8FqNvNG9YjCkp5qqBZ");
-       System.out.println(res6);
-       
-       
-       
-    }
+ 
 }
 
 

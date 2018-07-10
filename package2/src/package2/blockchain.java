@@ -348,25 +348,5 @@ public class blockchain {
     }
 
 
-public static void main(String[] args) throws IOException, JSONException
-     {
-	
-	JSONObject res1= getChainInfo();
-	String x = res1.getString("chain_name");
-    System.out.println(x);
-    System.out.println(res1);
-    
-    JSONObject res2= getNodeInfo();
-    System.out.println(res2);
-	
-    String res3= permissions();
-    System.out.println(res3);
-    
-    JSONObject res4= getpendingTransactions();
-    System.out.println(res4);
-    
-    int res5= checkNodeBalance();
-    System.out.println(res5);
-    
-     }
+
 }

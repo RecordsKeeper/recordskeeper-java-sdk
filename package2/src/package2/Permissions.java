@@ -172,20 +172,7 @@ public class Permissions {
         return result;
     }
 
-       public static void main(String[] args) throws IOException, JSONException 
-       {
-    	   
-    	   String validaddress= Config.getProperty("validaddress");
-    	   
-    	   String res1= grantPermission(validaddress, "create,connect");
-           System.out.println(res1);
-           
-           String res2= revokePermission(validaddress, "send");
-           System.out.println(res2);
-           
-           
-           
-       }
+      
 
 }
 

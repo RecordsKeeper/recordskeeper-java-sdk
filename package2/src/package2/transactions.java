@@ -523,38 +523,5 @@ public class transactions {
         return fees;
     }
     
-    public static void main(String[] args) throws IOException, JSONException
-    {
-    	String miningaddress = Config.getProperty("miningaddress");
-    	
-    	String validaddress = Config.getProperty("validaddress");
-    	
-        String dumptxhex =Config.getProperty("dumptxhex");
-    	
-    	String privatekey =Config.getProperty("privatekey");
-    	
-    	String dumpsignedtxhex=Config.getProperty("dumpsignedtxhex");
-    	   	
-	    String res1= sendTransaction(miningaddress,validaddress,"hello",0.20);
-	    System.out.println(res1);
-	    
-	    String res2= createRawTransaction(miningaddress,validaddress,0.20,"hello");
-	    System.out.println(res2); 
-	     
-	    String res3= signRawTransaction(dumptxhex , privatekey );
-	    System.out.println(res3);
-	    
-	    String res4= sendRawTransaction(dumpsignedtxhex);
-	    System.out.println(res4);
-	    
-	    String res5= sendSignedTransaction(miningaddress,validaddress,0.20,privatekey,"hello");
-	    System.out.println(res5); 
-	
-	    JSONObject res6= retrieveTransaction("3b38e7d410fba1033727a3bb425ed05ebe91091ac1f1864297b39f85d1b9eb9f");
-	    System.out.println(res6);
-	          
-	    double res7= getFee(miningaddress,res4);
-	    System.out.println(res7);
-	    
-    }
+
 }

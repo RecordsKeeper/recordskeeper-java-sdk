@@ -234,21 +234,5 @@ public class Assets {
 	    }
 	
 
-	    public static void main(String[] args) throws IOException, JSONException{
-	    	
-	    	 String validaddress= Config.getProperty("validaddress");
-	    	 
-	    	 String res1= createAsset(validaddress,"BTC1",100);
-	         System.out.println(res1);
-	         
-	         JSONObject res2= retrieveAssets();
-	         System.out.println(res2);
-	    	
-	         String res3= sendAssets(validaddress,"MEW",10);
-	         System.out.println(res3);
-	    	
-	    	
-	    	
-	    }
 
 }

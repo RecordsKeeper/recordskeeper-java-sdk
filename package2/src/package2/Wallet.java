@@ -682,29 +682,5 @@ public class Wallet {
 	
     
     
-    
-    public static void main(String[] args) throws IOException, JSONException
-    {
-    	 // backupwallet, importwallet, dumpwallet, lockwallet, unlockwallet, changewalletpassword
-    	
-    	JSONObject res1= createWallet();
-    	System.out.print(res1);
-    	
-    	String res2=getPrivateKey("1P1oadCfFodEC755yvu4yUfcBFEes82V8vyQPf");
-    	System.out.println(res2);
-    	System.out.println(res2);
-    	
-    	JSONObject res3= retrieveWalletinfo();
-    	System.out.println(res3);
-    	
-    	String  res4=signMessage("1P1oadCfFodEC755yvu4yUfcBFEes82V8vyQPf","fhaesjkhfkw");
-    	System.out.println(res4);
-    	
-     	String res5=verifyMessage("1P1oadCfFodEC755yvu4yUfcBFEes82V8vyQPf","IPcmyAKio2WS8qHJ819TN7F1A+aViGW9dMxIuT0mHWfLWZ29ooggvm9KzFJ4BDT4/pCytCO0hpvP0qQpTyiWPHE=", "fhaesjkhfkw");
-    	System.out.println(res5);
-    	
-    	  }
-	
-    
-    
+
 }
