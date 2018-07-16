@@ -2,7 +2,9 @@ language: java
 
 jdk:
   - oraclejdk8
-  - openjdk7
+  
 
-before_install:
-  - cd java
+sudo: false
+
+script:
+  - ./gradlew test
