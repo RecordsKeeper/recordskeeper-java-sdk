@@ -46,9 +46,9 @@
   		<version>1.14.1</version>
   	</dependency>
   	<dependency>
-  		<groupId>com.buschmais.jqassistant.plugin</groupId>
+  		<groupId>junit</groupId>
   		<artifactId>junit</artifactId>
-  		<version>1.4</version>
+  		<version>4.12</version>
   	</dependency>
   </dependencies>
 </project>
