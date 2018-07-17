@@ -260,7 +260,7 @@ public class Wallet {
      * System.out.println(result);      //prints result</code></p>
      * You have to pass these three arguments to the backupWallet function call:
      * @param filename wallet's backup file name
-     * @return It will return the response of the backup wallet function. The backup of the wallet is created in your chain's directory and you can simply access your file by using same filename that you have passed with the backupwallet function. Creates a backup of the wallet.dat file in which the node’s private keys and watch-only addresses are stored. The backup is created in file filename. Use with caution – any node with access to this file can perform any action restricted to this node’s addresses.
+     * @return It will return the response of the backup wallet function. The backup of the wallet is created in your chain's directory and you can simply access your file by using same filename that you have passed with the backupwallet function. Creates a backup of the wallet.dat file in which the nodes private keys and watch-only addresses are stored. The backup is created in file filename. Use with caution any node with access to this file can perform any action restricted to this nodes addresses.
      */
 
     
@@ -368,7 +368,7 @@ public class Wallet {
      * System.out.println(result);                   //prints result</code></p>
      * You have to pass these three arguments to the dumpWallet function call:
      * @param filename file name to dump wallet in
-     * @return It will return the response of the dump wallet function. Dumps the entire set of private keys in the wallet into a human-readable text format in file filename. Use with caution – any node with access to this file can perform any action restricted to this node’s addresses.
+     * @return It will return the response of the dump wallet function. Dumps the entire set of private keys in the wallet into a human-readable text format in file filename. Use with caution any node with access to this file can perform any action restricted to this nodes addresses.
      */
     
     
@@ -421,7 +421,7 @@ public class Wallet {
      * System.out.println(result);                    //prints result</code></p>
      * You have to pass password as an argument to the lockWallet function call:
      * @param password password to lock the wallet
-     * @return It will return the the response of the lock wallet function. This encrypts the node’s wallet for the first time, using passphrase as the password for unlocking. Once encryption is complete, the wallet’s private keys can no longer be retrieved directly from the wallet.dat file on disk, and chain will stop and need to be restarted. Use with caution – once a wallet has been encrypted it cannot be permanently unencrypted, and must be unlocked for signing transactions with the unlockwallet function.
+     * @return It will return the the response of the lock wallet function. This encrypts the nodes wallet for the first time, using passphrase as the password for unlocking. Once encryption is complete, the wallets private keys can no longer be retrieved directly from the wallet.dat file on disk, and chain will stop and need to be restarted. Use with caution Â– once a wallet has been encrypted it cannot be permanently unencrypted, and must be unlocked for signing transactions with the unlockwallet function.
      */
 
     
@@ -475,7 +475,7 @@ public class Wallet {
      * You have to pass these two arguments to the unlockWallet function call:
      * @param password password to unlock the wallet
      * @param unlock_time seconds for which wallet remains unlock
-     * @return It will return the response of the unlock wallet function. This uses passphrase to unlock the node’s wallet for signing transactions for the next timeout seconds. This will also need to be called before the node can connect to other nodes or sign blocks that it has mined.
+     * @return It will return the response of the unlock wallet function. This uses passphrase to unlock the nodes wallet for signing transactions for the next timeout seconds. This will also need to be called before the node can connect to other nodes or sign blocks that it has mined.
      */
     
     
@@ -530,7 +530,7 @@ public class Wallet {
      * You have to pass these two arguments to the changeWalletPassword function call:
      * @param old_password old password of the wallet
      * @param new_password new password of the wallet
-     * @return This changes the wallet’s password from old-password to new-password.
+     * @return This changes the wallets password from old-password to new-password.
      */
     
     
