@@ -455,7 +455,7 @@ public class transactions {
         JSONArray amount = object.getJSONArray("vout");
         JSONObject value = amount.getJSONObject(0);
        // System.out.println(value);
-        double sent_amount =  (double) value.get("value");
+        double sent_amount =  (double) value.getDouble("value");
       //  System.out.println(sent_amount);
         
         JSONObject item=new JSONObject();
@@ -517,7 +517,7 @@ public class transactions {
         JSONObject amount = value.getJSONObject(0);
         double sent_amount = amount.getInt("amount");
         JSONObject balance = object.getJSONObject("balance");
-        double balance_amount = (double) balance.get("amount");
+        double balance_amount = (double) balance.getDouble("amount");
         double fees = (abs(balance_amount) - sent_amount);
 
         return fees;
