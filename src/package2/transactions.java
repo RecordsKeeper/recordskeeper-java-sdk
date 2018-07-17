@@ -422,7 +422,7 @@ public class transactions {
      * @return It will return the sent data, sent amount and reciever's address of the retrieved transaction.
      */
 
-    public static JSONObject retrieveTransaction(String txid) throws IOException, JSONException {
+   /* public static JSONObject retrieveTransaction(String txid) throws IOException, JSONException {
 
         txid = "\"" + txid + "\"";
       
@@ -464,7 +464,7 @@ public class transactions {
         return item  ; 
         
     }
-    
+    */
     
     
     /**
