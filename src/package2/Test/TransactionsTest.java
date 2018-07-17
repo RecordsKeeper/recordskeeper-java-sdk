@@ -84,7 +84,7 @@ public class TransactionsTest {
 	        assertEquals(tx_size, 64);
 	    }
 
-	 /*           @Test
+               @Test
 	        public void retrievetransaction() throws IOException, JSONException {
 	        JSONObject res= transactions.retrieveTransaction(dumptxid);
 	        System.out.println(res);
@@ -95,7 +95,7 @@ public class TransactionsTest {
 	        assertNotEquals(sentamount, 0);
 	    }
 	            
-	   */         
+	           
 	    @Test
 	    public void getfee() throws IOException, JSONException {
 	        double fees = transactions.getFee(miningaddress, "4b1fbf9fb1e5c93cfee2d37ddc5fef444da0a05cc9354a834dc7155ff861a5e0");
