@@ -2,10 +2,7 @@ sudo: false
 language: java
 jdk:
   - oraclejdk8
-cache:
-  directories:
-  - "$HOME/.cache"
-install: mvn dependency:resolve
+
 deploy:
   provider: script
   script: mvn clean verify
