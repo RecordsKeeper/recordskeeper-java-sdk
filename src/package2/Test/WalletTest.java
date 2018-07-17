@@ -1,3 +1,4 @@
+/*
 package package2.Test;
 
 import static org.junit.Assert.*;
@@ -74,7 +75,7 @@ public class WalletTest {
 	    public void changeWalletPassword(){
 	        String a = wallet.changeWalletPassword();
 	    }
-	*/
+	
 	    
 	    @Test
 	    public void signmessage() throws IOException, JSONException {
@@ -94,3 +95,4 @@ public class WalletTest {
 	
 	
 }
+*/
