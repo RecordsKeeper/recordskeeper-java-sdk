@@ -4,10 +4,10 @@
   <artifactId>package2</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <build>
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>src/package2</sourceDirectory>
     <resources>
       <resource>
-        <directory>src</directory>
+        <directory>src/package2</directory>
         <excludes>
           <exclude>**/*.java</exclude>
         </excludes>
