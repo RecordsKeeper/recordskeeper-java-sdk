@@ -45,5 +45,10 @@
   		<artifactId>okio</artifactId>
   		<version>1.14.1</version>
   	</dependency>
+  	<dependency>
+  		<groupId>com.buschmais.jqassistant.plugin</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>1.4</version>
+  	</dependency>
   </dependencies>
 </project>
