@@ -11,6 +11,6 @@ addons:
 
   
   
-script: mvn test -B
+script: java AddressTest.java
 
 skip_cleanup: true
