@@ -10,7 +10,6 @@ addons:
    - oracle-java8-installer
 
 install:
-- mvn -N io.takari:maven:wrapper
 - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 script:
@@ -20,4 +19,7 @@ skip_cleanup: true
 
 after_success:
   ./.travis/artifact-upload.sh
+  
+  
+ 
 
