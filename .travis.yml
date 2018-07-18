@@ -9,7 +9,7 @@ addons:
    - oracle-java8-installer
 deploy:
   provider: script
-  script: ant test
+  script: "mvn cobertura:cobertura"
   skip_cleanup: true
  
 
