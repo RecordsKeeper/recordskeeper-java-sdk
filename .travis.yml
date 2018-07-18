@@ -17,8 +17,7 @@ skip_cleanup: true
   
   
 after_success:
-  - mvn clean test jacoco:report coveralls:report
-  
+  ./.travis/artifact-upload.sh
 
 
   
