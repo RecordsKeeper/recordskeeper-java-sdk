@@ -6,10 +6,6 @@ addons:
    apt:
    packages:
    - oracle-java8-installer
-deploy:
-  provider: script
-  script: ant test
-  skip_cleanup: true
-  on:
-    tags: true
+script:
+  - ant test
 
