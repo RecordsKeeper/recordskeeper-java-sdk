@@ -13,7 +13,7 @@ addons:
   
 deploy:
   provider: script
-  script: ant test
+  script: mvn test
   skip_cleanup: true
   on:
     tags: true
