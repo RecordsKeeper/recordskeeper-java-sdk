@@ -1,3 +1,4 @@
+
 sudo: false
 language: java
 jdk:
@@ -6,6 +7,10 @@ addons:
    apt:
    packages:
    - oracle-java8-installer
-script:
-  - ant build
+deploy:
+  provider: script
+  script: ant test
+  skip_cleanup: true
+  on:
+    tags: true
 
