@@ -9,7 +9,7 @@ addons:
    - oracle-java8-installer
 deploy:
   provider: script
-  script: ant test
+  script: ant build
   skip_cleanup: true
   on:
     tags: true
