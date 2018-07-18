@@ -10,10 +10,11 @@ addons:
 
   install:
 - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
 script:
 - mvn test
   
-skip_cleanup: true
+  skip_cleanup: true
 after_success:
   ./.travis/artifact-upload.sh
 
