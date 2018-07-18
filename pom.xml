@@ -22,12 +22,14 @@
           <target/>
         </configuration>
       </plugin>
-    </plugins>
-    
-    
-    
-    
-    <plugin>
+      
+      
+      
+      
+      
+      
+      
+        <plugin>
   <groupId>org.apache.maven.plugins</groupId>
   <artifactId>maven-surefire-plugin</artifactId>
   <configuration>
@@ -53,17 +55,24 @@
     </execution>
   </executions>
 </plugin>
-    
-    
-    
-    
-    
-    
-    
-    
-    
- 
-  </build>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </plugins>
+ </build>
   <dependencies>
   	<dependency>
   		<groupId>org.json</groupId>
