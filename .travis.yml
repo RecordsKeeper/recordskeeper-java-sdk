@@ -6,7 +6,6 @@ addons:
    apt:
    packages:
    - oracle-java8-installer
-
-  on:
+on:
     tags: true
 
