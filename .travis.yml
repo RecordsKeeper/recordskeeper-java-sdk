@@ -3,18 +3,26 @@ sudo: false
 language: java
 jdk:
   - oraclejdk8
+  
 addons:
    apt:
    packages:
    - oracle-java8-installer
 
-  install:
-- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+before_install:
+  - cd java
+
+
+install:
+- mvn -N io.takari:maven:wrapper
+- ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 script:
 - mvn test
   
-  skip_cleanup: true
+skip_cleanup: true
+
 after_success:
   ./.travis/artifact-upload.sh
 
