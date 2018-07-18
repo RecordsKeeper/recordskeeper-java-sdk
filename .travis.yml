@@ -6,10 +6,7 @@ addons:
    apt:
    packages:
    - oracle-java8-installer
-deploy:
-  provider: script
-  script: mvn clean verify
-  skip_cleanup: true
+
   on:
     tags: true
 
