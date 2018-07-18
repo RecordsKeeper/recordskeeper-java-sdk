@@ -11,10 +11,13 @@ addons:
 
   
   
-deploy:
-  provider: script
-  script: mvn test
-  skip_cleanup: true
+script: mvn test
+
+skip_cleanup: true
+  
+  
+after_success:
+  - mvn clean test jacoco:report coveralls:report
   
 
 
