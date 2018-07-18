@@ -10,6 +10,8 @@ addons:
 deploy:
   provider: script
   script: "mvn cobertura:cobertura"
-  skip_cleanup: true
- 
+  
+skip_cleanup: true
+after_success:
+  ./.travis/artifact-upload.sh
 
