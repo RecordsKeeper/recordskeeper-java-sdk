@@ -9,16 +9,16 @@ addons:
    packages:
    - oracle-java8-installer
 
-install:
-- ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-
-script:
-- mvn test
   
-skip_cleanup: true
+  
+deploy:
+  provider: script
+  script: ant test
+  skip_cleanup: true
+  on:
+    tags: true
 
-after_success:
-  ./.travis/artifact-upload.sh
+
   
   
  
