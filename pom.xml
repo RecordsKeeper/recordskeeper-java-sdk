@@ -5,6 +5,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <build>
     <sourceDirectory>src/package2</sourceDirectory>
+    <testDirectory>src/package2/Test</testDirectory>
     <resources>
       <resource>
         <directory>src/package2</directory>
@@ -97,7 +98,6 @@
   		<groupId>junit</groupId>
   		<artifactId>junit</artifactId>
   		<version>4.12</version>
-      <scope>Test</scope>
   	</dependency>
   </dependencies>
 </project>
