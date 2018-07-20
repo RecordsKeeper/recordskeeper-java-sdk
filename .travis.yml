@@ -1,16 +1,4 @@
-
-sudo: false
 language: java
 jdk:
   - oraclejdk8
-  
-addons:
-   apt:
-   packages:
-   - oracle-java8-installer
-
-  
-  
-script: mvn test -B
-
-skip_cleanup: true
+  - openjdk7
