@@ -5,7 +5,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <build>
     <sourceDirectory>src/package2</sourceDirectory>
-    <testDirectory>src/package2/Test</testDirectory>
+    <testSourceDirectory>src/package2/Test</testSourceDirectory>
     <resources>
       <resource>
         <directory>src/package2</directory>
