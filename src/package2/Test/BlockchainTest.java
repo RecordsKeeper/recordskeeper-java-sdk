@@ -19,7 +19,7 @@ public class BlockchainTest {
     String chain = System.getenv("chain");
     String stream = System.getenv("stream");
    
-    int port = System.getenv("port");
+    int port = Integer.parseInt(System.getenv("port"));
 
     public BlockchainTest() throws IOException {}
 
