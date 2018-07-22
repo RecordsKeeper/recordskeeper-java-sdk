@@ -16,10 +16,10 @@ public class BlockchainTest {
 
 	
    
-    String chain = Config.getProperty("chain");
-    String stream = Config.getProperty("stream");
+    String chain = System.getenv("chain");
+    String stream = System.getenv("stream");
    
-    int port = Integer.parseInt(Config.getProperty("port"));
+    int port = System.getenv("port");
 
     public BlockchainTest() throws IOException {}
 
