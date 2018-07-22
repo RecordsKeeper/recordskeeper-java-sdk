@@ -15,13 +15,16 @@ import package2.address;
 public class AddressTest {
 	
 	
-	    String multisigaddress = Config.getProperty("multisigaddress");
-	    String validaddress = Config.getProperty("validaddress");
-	    String miningaddress = Config.getProperty("miningaddress");
-	    String nonminingaddress = Config.getProperty("nonminingaddress");
-	    String qty = Config.getProperty("qty");
-	    String invalidaddress = Config.getProperty("invalidaddress");
-	    String wrongimportaddress = Config.getProperty("wrongimportaddress");
+	 
+	
+	
+    String multisigaddress = System.getenv("multisigaddress");
+    String validaddress = System.getenv("validaddress");
+    String miningaddress =System.getenv("miningaddress") ;
+    String nonminingaddress = System.getenv("nonminingaddress");
+    String qty = System.getenv("qty");
+    String invalidaddress = System.getenv("invalidaddress");
+    String wrongimportaddress = System.getenv("wrongimportaddress");
 	
 	address Address = new address();
 	
