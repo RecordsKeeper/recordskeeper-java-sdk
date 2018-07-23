@@ -92,10 +92,10 @@ public class block {
 
         block_height = "\"" +block_height+ "\"";
         MediaType mediaType = MediaType.parse("application/json");
-    	String rkuser=Config.getProperty("rkuser");
-    	String passwd=Config.getProperty("passwd");
-    	String chain=Config.getProperty("chain");
-    	String url=Config.getProperty("url");
+    	String rkuser=System.getenv("rkuser");
+    	String passwd=System.getenv("passwd");
+    	String chain=System.getenv("chain");
+    	String url=System.getenv("url");
     	String credential = Credentials.basic(rkuser, passwd);
         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"getblock\",\"params\":["+block_height+"],\"id\":1,\"chain_name\":\""+chain+"\"}\n");
         Request request = new Request.Builder()
@@ -168,10 +168,10 @@ public class block {
 
         block_range = "\"" + block_range + "\"";
         MediaType mediaType = MediaType.parse("application/json");
-    	String rkuser=Config.getProperty("rkuser");
-    	String passwd=Config.getProperty("passwd");
-    	String chain=Config.getProperty("chain");
-    	String url=Config.getProperty("url");
+    	String rkuser=System.getenv("rkuser");
+    	String passwd=System.getenv("passwd");
+    	String chain=System.getenv("chain");
+    	String url=System.getenv("url");
     	String credential = Credentials.basic(rkuser, passwd);
         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"listblocks\",\"params\":[" + block_range + "],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
         Request request = new Request.Builder()
