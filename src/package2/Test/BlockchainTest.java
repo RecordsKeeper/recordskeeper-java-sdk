@@ -74,7 +74,7 @@ public class BlockchainTest {
     	
        JSONObject res3 = blockchain.getpendingTransactions();
         String pendingtx=res3.getString("tx");
-        assertEquals(pendingtx, "["1834e07588a3021307fb2543cca6f3d5641084ea7e8d5713d880b15f2c74435a"]");
+        assertEquals(pendingtx, "1834e07588a3021307fb2543cca6f3d5641084ea7e8d5713d880b15f2c74435a");
 
         int pendingtxcount=res3.getInt("tx_count");
         assertEquals(pendingtxcount, 0);
