@@ -18,7 +18,7 @@ public class BlockTest {
 	
 	 
 	   
-	    String mainaddress =Config.getProperty("mainaddress");
+	    String mainaddress =System.getenv("mainaddress");
 
 	    public BlockTest() throws IOException {}
 
