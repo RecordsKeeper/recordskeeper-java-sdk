@@ -17,9 +17,9 @@ public class StreamTest {
 	
 	
 	   stream Stream = new stream();
-	    String miningaddress = Config.getProperty("miningaddress");
-	    String stream = Config.getProperty("stream");
-	    String testdata = Config.getProperty("key");
+	    String miningaddress = System.getenv("miningaddress");
+	    String stream = System.getenv("stream");
+	    String testdata = System.getenv("key");
 
 	    public StreamTest() throws IOException {}
 
