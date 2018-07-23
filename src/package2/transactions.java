@@ -108,10 +108,10 @@ public class transactions {
     	String datahex;
     	String resp;
         
-    	String rkuser=Config.getProperty("rkuser");
-  		String passwd=Config.getProperty("passwd");
-  		String chain=Config.getProperty("chain");
-  		String url=Config.getProperty("url");
+    	 String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
   		String credential = Credentials.basic(rkuser, passwd);
   		OkHttpClient client = new OkHttpClient();
   		MediaType mediaType = MediaType.parse("application/json"); 
@@ -176,10 +176,10 @@ public class transactions {
         
         datahex = "\"" + hex + "\"";
         
-    	String rkuser=Config.getProperty("rkuser");
-  		String passwd=Config.getProperty("passwd");
-  		String chain=Config.getProperty("chain");
-  		String url=Config.getProperty("url");
+    	 String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
   		String credential = Credentials.basic(rkuser, passwd);
   		OkHttpClient client = new OkHttpClient();
   		MediaType mediaType = MediaType.parse("application/json");
@@ -228,10 +228,10 @@ public class transactions {
         ar.add(private_key);
         
         String resp;        
-        String rkuser=Config.getProperty("rkuser");
-  		String passwd=Config.getProperty("passwd");
-  		String chain=Config.getProperty("chain");
-  		String url=Config.getProperty("url");
+         String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
   		String credential = Credentials.basic(rkuser, passwd);
   		OkHttpClient client = new OkHttpClient();
   		MediaType mediaType = MediaType.parse("application/json");
@@ -275,10 +275,10 @@ public class transactions {
         String resp;
 
         
-        String rkuser=Config.getProperty("rkuser");
-  		String passwd=Config.getProperty("passwd");
-  		String chain=Config.getProperty("chain");
-  		String url=Config.getProperty("url");
+         String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
   		String credential = Credentials.basic(rkuser, passwd);
   		OkHttpClient client = new OkHttpClient();
   		MediaType mediaType = MediaType.parse("application/json");
@@ -345,10 +345,10 @@ public class transactions {
         ArrayList<String> ar = new ArrayList<String>();
         ar.add(private_key);
         
-        String rkuser=Config.getProperty("rkuser");
-  		String passwd=Config.getProperty("passwd");
-  		String chain=Config.getProperty("chain");
-  		String url=Config.getProperty("url");
+        String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
   		String credential = Credentials.basic(rkuser, passwd);
   		OkHttpClient client = new OkHttpClient();
   		MediaType mediaType = MediaType.parse("application/json");
@@ -427,10 +427,10 @@ public class transactions {
         txid = "\"" + txid + "\"";
       
         String resp;
-        String rkuser=Config.getProperty("rkuser");
-  		String passwd=Config.getProperty("passwd");
-  		String chain=Config.getProperty("chain");
-  		String url=Config.getProperty("url");
+         String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
   		String credential = Credentials.basic(rkuser, passwd);
   		OkHttpClient client = new OkHttpClient();
   		MediaType mediaType = MediaType.parse("application/json");
@@ -489,10 +489,10 @@ public class transactions {
         
         String resp;
         
-        String rkuser=Config.getProperty("rkuser");
-  		String passwd=Config.getProperty("passwd");
-  		String chain=Config.getProperty("chain");
-  		String url=Config.getProperty("url");
+         String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
   		String credential = Credentials.basic(rkuser, passwd);
   		OkHttpClient client = new OkHttpClient();
   		MediaType mediaType = MediaType.parse("application/json");
