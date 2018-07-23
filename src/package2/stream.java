@@ -88,10 +88,10 @@ public class stream {
     	byte[] byt = data.getBytes("UTF-8");
      	BigInteger big = new BigInteger(byt);
      	String hex = big.toString(16);
-    	 String rkuser=Config.getProperty("rkuser");
-	     String passwd=Config.getProperty("passwd");
-	     String url= Config.getProperty("url");
-	     String chain=Config.getProperty("chain");
+    	     String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
 	     
 	     String resp;
 	     String txid;
@@ -138,10 +138,10 @@ public class stream {
 
     public static String retrieve(String stream, String txid) throws IOException, JSONException {
   
-    	 String rkuser=Config.getProperty("rkuser");
- 	     String passwd=Config.getProperty("passwd");
- 	     String url= Config.getProperty("url");
- 	     String chain=Config.getProperty("chain");
+    	  String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
           OkHttpClient client = new OkHttpClient();
           MediaType mediaType = MediaType.parse("application/json");
           String credential = Credentials.basic(rkuser, passwd);
@@ -201,10 +201,10 @@ public class stream {
         String data = "";
         String raw_data = "";
         String resp;
-        String rkuser=Config.getProperty("rkuser");
-        String passwd=Config.getProperty("passwd");
-        String url= Config.getProperty("url");
-	    String chain=Config.getProperty("chain");
+        String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json");
         String credential = Credentials.basic(rkuser, passwd);
@@ -266,10 +266,10 @@ public class stream {
         String data = "";
         String raw_data = "";
         String resp;
-        String rkuser=Config.getProperty("rkuser");
-	    String passwd=Config.getProperty("passwd");
-	    String url= Config.getProperty("url");
-	    String chain=Config.getProperty("chain");
+        String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json");
         String credential = Credentials.basic(rkuser, passwd);
@@ -329,10 +329,10 @@ public class stream {
         String txid;        
         String raw_data = "";
         String resp;
-        String rkuser=Config.getProperty("rkuser");
-  	    String passwd=Config.getProperty("passwd");
-  	    String url= Config.getProperty("url");
-  	    String chain=Config.getProperty("chain");
+         String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json");
         String credential = Credentials.basic(rkuser, passwd);
@@ -397,10 +397,10 @@ public class stream {
         String raw_data = "";
         String resp;
         String key="";
-        String rkuser=Config.getProperty("rkuser");
-  	    String passwd=Config.getProperty("passwd");
-  	    String url= Config.getProperty("url");
-  	    String chain=Config.getProperty("chain");
+       String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json");
         String credential = Credentials.basic(rkuser, passwd);
