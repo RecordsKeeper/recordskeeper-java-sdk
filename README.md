@@ -1,5 +1,6 @@
  RecordsKeeper-JAVA-SDK
  =========================
+ [![Build Status](https://travis-ci.org/RecordsKeeper/recordskeeper-java-sdk.svg?branch=master)](https://travis-ci.org/RecordsKeeper/recordskeeper-java-sdk)
 
 It is an infrastructure to build RecordsKeeper blockchain-based applications, products and is used to work around applications that are built on top of this blockchain platform.
 
