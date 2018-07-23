@@ -16,14 +16,14 @@ import package2.transactions;
 public class TransactionsTest {
 
 	
-	    String miningaddress = Config.getProperty("miningaddress");
-	    String validaddress = Config.getProperty("validaddress");
-	    double amount = Double.parseDouble(Config.getProperty("amount"));
-	    String testdata = Config.getProperty("testdata");
-	    String dumptxhex = Config.getProperty("dumptxhex");
-	    String privatekey = Config.getProperty("privatekey");
-	    String dumpsignedtxhex = Config.getProperty("dumpsignedtxhex");
-	    String dumptxid = Config.getProperty("dumptxid");
+	    String miningaddress = System.getenv("miningaddress");
+	    String validaddress = System.getenv("validaddress");
+	    double amount = Double.parseDouble(System.getenv("amount"));
+	    String testdata = System.getenv("testdata");
+	    String dumptxhex = System.getenv("dumptxhex");
+	    String privatekey = System.getenv("privatekey");
+	    String dumpsignedtxhex = System.getenv("dumpsignedtxhex");
+	    String dumptxid = System.getenv("dumptxid");
 
 	    public TransactionsTest() throws IOException {
 	    }
