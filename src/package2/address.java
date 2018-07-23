@@ -88,10 +88,10 @@ public class address {
 	        MediaType mediaType = MediaType.parse("application/json");
 	       
 	    
-			String rkuser=Config.getProperty("rkuser");
-			String passwd=Config.getProperty("passwd");
-			String chain=Config.getProperty("chain");
-			String url=Config.getProperty("url");
+             String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
 			String credential = Credentials.basic(rkuser, passwd);
 			RequestBody body = RequestBody.create(mediaType, "{\"method\":\"getnewaddress\",\"params\":[],\"id\":1,\"chain_name\":\""+chain+"\"}\n");
 	       
@@ -135,10 +135,10 @@ public class address {
      public static String getMultisigAddress(int nrequired, String key) throws JSONException, IOException
      {     
     	 
-    	    String rkuser=Config.getProperty("rkuser");
-    	    String passwd=Config.getProperty("passwd");
-    	    String url= Config.getProperty("url");
-    	    String chain=Config.getProperty("chain");
+    	     String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
     	    String res;
     	    String keys = "";
          String output = "";
@@ -199,10 +199,10 @@ public class address {
      
      public static String getMultisigWalletAddress(int nrequired, String key) throws IOException, JSONException{
 
-    	String rkuser=Config.getProperty("rkuser");
-  	    String passwd=Config.getProperty("passwd");
-  	    String url= Config.getProperty("url");
-  	    String chain=Config.getProperty("chain");	   
+    	 String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");	   
   	    String res;
   	    String address;
 
@@ -262,10 +262,10 @@ public class address {
      
      public static String retrieveAddress() throws IOException, JSONException {
 
-     	String rkuser=Config.getProperty("rkuser");
-  	    String passwd=Config.getProperty("passwd");
-  	    String url= Config.getProperty("url");
-  	    String chain=Config.getProperty("chain");	   
+     	 String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");	   
   	    String address;
     	 
     	 
@@ -317,10 +317,10 @@ public class address {
      
      public static String checkifValid(String address) throws IOException, JSONException{
 
-    	 	String rkuser=Config.getProperty("rkuser");
-      	    String passwd=Config.getProperty("passwd");
-      	    String url= Config.getProperty("url");
-      	    String chain=Config.getProperty("chain");
+    	  String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
             address = "\""+address+"\"";
 
          OkHttpClient client = new OkHttpClient();
@@ -374,10 +374,10 @@ public class address {
       
     	 
     	 
-    	 String rkuser=Config.getProperty("rkuser");
-   	     String passwd=Config.getProperty("passwd");
-   	     String url= Config.getProperty("url");
-   	     String chain=Config.getProperty("chain");
+    	  String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
     	 address = "\""+address+"\"";
 
          OkHttpClient client = new OkHttpClient();
@@ -432,10 +432,10 @@ public class address {
      public static int checkBalance(String address) throws IOException, JSONException{
     	 
     	 
-    	 String rkuser=Config.getProperty("rkuser");
-   	     String passwd=Config.getProperty("passwd");
-   	     String url= Config.getProperty("url");
-   	     String chain=Config.getProperty("chain");
+    	 String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
          address = "\""+address+"\"";
 
          OkHttpClient client = new OkHttpClient();
@@ -480,10 +480,10 @@ public class address {
      
      public static String importAddress(String public_address) throws IOException, JSONException{
     	 
-    	 String rkuser=Config.getProperty("rkuser");
-   	     String passwd=Config.getProperty("passwd");
-   	     String url= Config.getProperty("url");
-   	     String chain=Config.getProperty("chain");
+    	  String rkuser=System.getenv("rkuser");
+	     String passwd=System.getenv("passwd");
+	     String url= System.getenv("url");
+	     String chain=System.getenv("chain");
          public_address = "\""+public_address+"\"";
          boolean False = false;
          OkHttpClient client = new OkHttpClient();
