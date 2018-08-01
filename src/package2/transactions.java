@@ -337,8 +337,8 @@ public class transactions {
 			String url;
 	        if (getPropert() == true) {
 	            url = Config.getProperty("url");
-	            rkuser = ConfigConfigConfig.getProperty("rkuser");
-	            passwd = ConfigConfig.getProperty("passwd");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
 	        } else {
 	            url = System.getenv("url");
