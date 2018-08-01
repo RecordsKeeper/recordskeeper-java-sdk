@@ -3,7 +3,9 @@ package package2.Test;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,12 +17,35 @@ import package2.block;
 
 public class BlockTest {
 	
+	  public Properties prop;
 	
-	 
-	   
-	    String mainaddress =System.getenv("mainaddress");
+	  public boolean getPropert() throws IOException {
 
-	    public BlockTest() throws IOException {}
+        prop = new Properties();
+
+        String path = "config.properties";
+        File file = new File(path);
+        if (file.exists()) {
+            FileInputStream fs = new FileInputStream(path);
+            prop.load(fs);
+            fs.close();
+            return true;
+        } else {
+            return false;
+        }
+    }
+	   
+	    
+
+	    public BlockTest() throws IOException {
+	    
+          if (getPropert() == true) {
+            mainaddress = prop.getProperty("mainaddress");
+        } else {
+            mainaddress = System.getenv("mainaddress");
+        }
+	    
+	    }
 
 	    @Test
 	    public void blockinfo() throws Exception {
