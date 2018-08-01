@@ -1,7 +1,9 @@
 package package2.Test;
 
 import static org.junit.Assert.*;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
 import java.io.IOException;
 import java.math.BigInteger;
 
@@ -15,6 +17,32 @@ import package2.transactions;
 
 public class TransactionsTest {
 
+    public Properties prop;
+    public String validaddress;
+    public String dumptxhex;
+    public String miningaddress;
+    public String testdata;
+    public String privatekey;
+    public double amount;
+    public String dumpsignedtxhex;
+    public String dumptxid;
+	
+	
+	public boolean getPropert() throws IOException {
+
+        prop = new Properties();
+
+        String path = "config.properties";
+        File file = new File(path);
+        if (file.exists()) {
+            FileInputStream fs = new FileInputStream(path);
+            prop.load(fs);
+            fs.close();
+            return true;
+        } else {
+            return false;
+        }
+    }
 	
 	    String miningaddress = System.getenv("miningaddress");
 	    String validaddress = System.getenv("validaddress");
@@ -26,6 +54,32 @@ public class TransactionsTest {
 	    String dumptxid = System.getenv("dumptxid");
 
 	    public TransactionsTest() throws IOException {
+	
+         if (getPropert() == true) {
+            validaddress = prop.getProperty("validaddress");
+            miningaddress = prop.getProperty("miningaddress");
+           amount = Double.parseDouble(Config.getProperty("amount"));
+            testdata = prop.getProperty("testdata");
+            dumptxhex = prop.getProperty("dumptxhex");
+            privatekey = prop.getProperty("privatekey");
+            dumpsignedtxhex = prop.getProperty("dumpsignedtxhex");
+            dumptxid = prop.getProperty("dumptxid");
+        } else {
+            validaddress = System.getenv("validaddress");
+            miningaddress = System.getenv("miningaddress");
+            amount = Double.parseDouble(System.getenv("amount"));
+            testdata = System.getenv("testdata");
+            dumptxhex = System.getenv("dumptxhex");
+            privatekey = System.getenv("privatekey");
+            dumpsignedtxhex = System.getenv("dumpsignedtxhex");
+            dumptxid = System.getenv("dumptxid");
+        }
+		    
+		    
+		    
+		    
+		    
+		    
 	    }
 
 
