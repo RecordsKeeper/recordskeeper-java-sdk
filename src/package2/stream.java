@@ -59,7 +59,7 @@ import static okio.ByteString.decodeHex;
 
 public class stream {
 	
-	
+	public Properties prop;
 	public boolean getPropert() throws IOException {
 
         prop = new Properties();
@@ -113,10 +113,10 @@ public class stream {
 			String chain;
 			String url;
 	        if (getPropert() == true) {
-	            url = prop.getProperty("url");
-	            rkuser = prop.getProperty("rkuser");
-	            passwd = prop.getProperty("passwd");
-	            chain = prop.getProperty("chain");
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
 	        } else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
@@ -174,10 +174,10 @@ public class stream {
 			String chain;
 			String url;
 	        if (getPropert() == true) {
-	            url = prop.getProperty("url");
-	            rkuser = prop.getProperty("rkuser");
-	            passwd = prop.getProperty("passwd");
-	            chain = prop.getProperty("chain");
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
 	        } else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
@@ -248,10 +248,10 @@ public class stream {
 			String chain;
 			String url;
 	        if (getPropert() == true) {
-	            url = prop.getProperty("url");
-	            rkuser = prop.getProperty("rkuser");
-	            passwd = prop.getProperty("passwd");
-	            chain = prop.getProperty("chain");
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
 	        } else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
@@ -324,10 +324,10 @@ public class stream {
 			String chain;
 			String url;
 	        if (getPropert() == true) {
-	            url = prop.getProperty("url");
-	            rkuser = prop.getProperty("rkuser");
-	            passwd = prop.getProperty("passwd");
-	            chain = prop.getProperty("chain");
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
 	        } else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
@@ -398,10 +398,10 @@ public class stream {
 			String chain;
 			String url;
 	        if (getPropert() == true) {
-	            url = prop.getProperty("url");
-	            rkuser = prop.getProperty("rkuser");
-	            passwd = prop.getProperty("passwd");
-	            chain = prop.getProperty("chain");
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
 	        } else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
@@ -477,10 +477,10 @@ public class stream {
 			String chain;
 			String url;
 	        if (getPropert() == true) {
-	            url = prop.getProperty("url");
-	            rkuser = prop.getProperty("rkuser");
-	            passwd = prop.getProperty("passwd");
-	            chain = prop.getProperty("chain");
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
 	        } else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
