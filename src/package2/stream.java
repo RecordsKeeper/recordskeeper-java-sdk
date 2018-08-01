@@ -59,8 +59,8 @@ import static okio.ByteString.decodeHex;
 
 public class stream {
 	
-	public Properties prop;
-	public boolean getPropert() throws IOException {
+	public static Properties prop;
+	public static boolean getPropert() throws IOException {
 
         prop = new Properties();
 
