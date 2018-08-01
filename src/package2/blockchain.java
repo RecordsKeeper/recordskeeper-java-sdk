@@ -1,6 +1,5 @@
 package package2;
 
-
 import okhttp3.Credentials;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
@@ -13,8 +12,11 @@ import package2.Config;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Properties;
   
 
 
@@ -61,6 +63,26 @@ import java.util.Arrays;
 
 public class blockchain {
 	
+	
+	 public static Properties prop;
+	
+	 public static boolean getPropert() throws IOException {
+
+	        prop = new Properties();
+
+	        String path = "config.properties";
+	        File file = new File(path);
+	        if (file.exists()) {
+	            FileInputStream fs = new FileInputStream(path);
+	            prop.load(fs);
+	            fs.close();
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }
+	
+	
 
 	  /**
      * Default Constructor Class
@@ -90,10 +112,21 @@ public class blockchain {
     public static JSONObject getChainInfo() throws IOException, JSONException {
 
     	    String resp;
-    	        String rkuser=System.getenv("rkuser");
-    		String passwd=System.getenv("passwd");
-    		String chain=System.getenv("chain");
-    		String url=System.getenv("url");
+    	        String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
     		String credential = Credentials.basic(rkuser, passwd);
     		OkHttpClient client = new OkHttpClient();
     		MediaType mediaType = MediaType.parse("application/json");
@@ -154,10 +187,21 @@ public class blockchain {
     public static JSONObject getNodeInfo() throws IOException, JSONException {
         
 	    String resp;
-	    String rkuser=System.getenv("rkuser");
-		String passwd=System.getenv("passwd");
-		String chain=System.getenv("chain");
-		String url=System.getenv("url");
+	   String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
 		String credential = Credentials.basic(rkuser, passwd);
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/json");
@@ -208,10 +252,21 @@ public class blockchain {
     	
 	    String resp;
 	    String permission;
-	    String rkuser=System.getenv("rkuser");
-		String passwd=System.getenv("passwd");
-		String chain=System.getenv("chain");
-		String url=System.getenv("url");
+	   String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
 		String credential = Credentials.basic(rkuser, passwd);
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/json");
@@ -258,10 +313,21 @@ public class blockchain {
 
     	
     	String resp;
- 	    String rkuser=System.getenv("rkuser");
- 		String passwd=System.getenv("passwd");
- 		String chain=System.getenv("chain");
- 		String url=System.getenv("url");
+ 	   String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
  		String credential = Credentials.basic(rkuser, passwd);
  		OkHttpClient client = new OkHttpClient();
  		MediaType mediaType = MediaType.parse("application/json");
@@ -320,10 +386,21 @@ public class blockchain {
     public static int checkNodeBalance() throws IOException, JSONException {
 
     	String resp;
- 	    String rkuser=System.getenv("rkuser");
- 		String passwd=System.getenv("passwd");
- 		String chain=System.getenv("chain");
- 		String url=System.getenv("url");
+ 	    String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
  		String credential = Credentials.basic(rkuser, passwd);
  		OkHttpClient client = new OkHttpClient();
  		MediaType mediaType = MediaType.parse("application/json");
