@@ -16,7 +16,9 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collection;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
 import static okio.ByteString.decodeHex;
 
 /**
@@ -56,6 +58,23 @@ import static okio.ByteString.decodeHex;
  */
 
 public class stream {
+	
+	
+	public boolean getPropert() throws IOException {
+
+        prop = new Properties();
+
+        String path = "config.properties";
+        File file = new File(path);
+        if (file.exists()) {
+            FileInputStream fs = new FileInputStream(path);
+            prop.load(fs);
+            fs.close();
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 	/**
      * Default Constructor Class
@@ -63,6 +82,7 @@ public class stream {
    
     public stream() throws IOException {}
 
+	
     
     
     /**
@@ -88,10 +108,21 @@ public class stream {
     	byte[] byt = data.getBytes("UTF-8");
      	BigInteger big = new BigInteger(byt);
      	String hex = big.toString(16);
-    	     String rkuser=System.getenv("rkuser");
-	     String passwd=System.getenv("passwd");
-	     String url= System.getenv("url");
-	     String chain=System.getenv("chain");
+    	    String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
 	     
 	     String resp;
 	     String txid;
@@ -138,10 +169,21 @@ public class stream {
 
     public static String retrieve(String stream, String txid) throws IOException, JSONException {
   
-    	  String rkuser=System.getenv("rkuser");
-	     String passwd=System.getenv("passwd");
-	     String url= System.getenv("url");
-	     String chain=System.getenv("chain");
+    	  String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
           OkHttpClient client = new OkHttpClient();
           MediaType mediaType = MediaType.parse("application/json");
           String credential = Credentials.basic(rkuser, passwd);
@@ -201,10 +243,21 @@ public class stream {
         String data = "";
         String raw_data = "";
         String resp;
-        String rkuser=System.getenv("rkuser");
-	     String passwd=System.getenv("passwd");
-	     String url= System.getenv("url");
-	     String chain=System.getenv("chain");
+                        String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json");
         String credential = Credentials.basic(rkuser, passwd);
@@ -266,10 +319,21 @@ public class stream {
         String data = "";
         String raw_data = "";
         String resp;
-        String rkuser=System.getenv("rkuser");
-	     String passwd=System.getenv("passwd");
-	     String url= System.getenv("url");
-	     String chain=System.getenv("chain");
+                        String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json");
         String credential = Credentials.basic(rkuser, passwd);
@@ -329,10 +393,21 @@ public class stream {
         String txid;        
         String raw_data = "";
         String resp;
-         String rkuser=System.getenv("rkuser");
-	     String passwd=System.getenv("passwd");
-	     String url= System.getenv("url");
-	     String chain=System.getenv("chain");
+                        String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json");
         String credential = Credentials.basic(rkuser, passwd);
@@ -397,10 +472,21 @@ public class stream {
         String raw_data = "";
         String resp;
         String key="";
-       String rkuser=System.getenv("rkuser");
-	     String passwd=System.getenv("passwd");
-	     String url= System.getenv("url");
-	     String chain=System.getenv("chain");
+       String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json");
         String credential = Credentials.basic(rkuser, passwd);
