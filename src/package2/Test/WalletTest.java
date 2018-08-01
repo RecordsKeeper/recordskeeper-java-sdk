@@ -4,6 +4,9 @@ package package2.Test;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,17 +18,57 @@ import package2.Wallet;
 
 public class WalletTest {
 
+            Properties prop;
+	    String validaddress;
+	    String privatekey;
+	    String testdata;
+	    String signedtestdata ;
+	    String miningaddress;
 	
-	  
+	 public boolean getPropert() throws IOException {
 
-	  
-	    String validaddress = Config.getProperty("validaddress");
-	    String privatekey = Config.getProperty("privatekey");
-	    String testdata = Config.getProperty("testdata");
-	    String signedtestdata = Config.getProperty("signedtestdata");
-	    String miningaddress = Config.getProperty("miningaddress");
+	         prop = new Properties();
 
-	    public WalletTest() throws IOException {}
+	        String path = "config.properties";
+	        File file = new File(path);
+	        if (file.exists()) {
+	            FileInputStream fs = new FileInputStream(path);
+	            prop.load(fs);
+	            fs.close();
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }
+
+
+	    public WalletTest() throws IOException {
+	    
+	    
+	    
+	  if (getPropert() == true) {
+          
+	    privatekey = Config.getProperty("privatekey");
+            validaddress = Config.getProperty("validaddress");
+	    testdata = Config.getProperty("testdata");
+	    signedtestdata = Config.getProperty("signedtestdata");
+	    miningaddress = Config.getProperty("miningaddress");
+	    
+        } 
+	  else {
+	  
+	    privatekey = System.getenv("privatekey");
+            validaddress = System.getenv("validaddress");
+	    testdata = System.getenv("testdata");
+	    signedtestdata = System.getenv("signedtestdata");
+	    miningaddress = System.getenv("miningaddress");
+	    
+          
+        }
+		
+	
+	    
+	    }
 
 	    @Test
 	    public void createWallet() throws Exception {
