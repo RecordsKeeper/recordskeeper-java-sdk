@@ -18,6 +18,7 @@ import package2.block;
 public class BlockTest {
 	
 	  public Properties prop;
+	  public String mainaddress;
 	
 	  public boolean getPropert() throws IOException {
 
