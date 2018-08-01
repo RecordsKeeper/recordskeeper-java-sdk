@@ -4,7 +4,9 @@ package package2.Test;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,10 +17,46 @@ import package2.Config;
 
 
 public class AssetTest {
+
+        String multisigaddress;
+	String validaddress;
+	String miningaddress;
+	String nonminingaddress;
+	String qty;
+	String invalidaddress;
+	String wrongimportaddress;
+	Properties prop;
+	
+	
+	 public boolean getPropert() throws IOException {
+
+	         prop = new Properties();
+
+	        String path = "config.properties";
+	        File file = new File(path);
+	        if (file.exists()) {
+	            FileInputStream fs = new FileInputStream(path);
+	            prop.load(fs);
+	            fs.close();
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }
+         
+
 	 Assets Assets = new Assets();
-	 String validaddress = Config.getProperty("validaddress");
+	 
   
-	 public AssetTest() throws IOException {}
+	 public AssetTest() throws IOException {
+	 
+	 if (getPropert() == true) {
+            validaddress = prop.getProperty("validaddress");
+        } else {
+          validaddress = System.getenv("validaddress");
+        }
+	 
+	 }
 	 
   
 
