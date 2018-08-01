@@ -3,7 +3,9 @@ package package2.Test;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -14,14 +16,42 @@ import package2.blockchain;
 
 public class BlockchainTest {
 
-	
-   
-    String chain = System.getenv("chain");
-    String stream = System.getenv("stream");
-   
-    int port = Integer.parseInt(System.getenv("port"));
+     public boolean getPropert() throws IOException {
 
-    public BlockchainTest() throws IOException {}
+	         prop = new Properties();
+
+	        String path = "config.properties";
+	        File file = new File(path);
+	        if (file.exists()) {
+	            FileInputStream fs = new FileInputStream(path);
+	            prop.load(fs);
+	            fs.close();
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }	
+   
+    String chain;
+    String stream;
+   
+    int port;
+
+    public BlockchainTest() throws IOException {
+    
+	    if (getPropert() == true) {
+            chain = Config.getProperty("chain");
+            stream = Config.getProperty("stream");
+            port = Integer.parseInt(Config.getProperty("port"));
+        } else {
+            chain = System.getenv("chain");
+            stream = System.getenv("stream");
+            port =Integer.parseInt(System.getenv("port"));
+        }
+
+    
+    
+    }
 
     
     @Test
