@@ -2,7 +2,11 @@ package package2.Test;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+
+import java.util.Properties;
 
 import org.json.JSONException;
 import org.junit.Test;
@@ -14,21 +18,59 @@ import package2.address;
 
 public class AddressTest {
 	
-	
+        String multisigaddress;
+	String validaddress;
+	String miningaddress;
+	String nonminingaddress;
+	String qty;
+	String invalidaddress;
+	String wrongimportaddress;
+	Properties prop;	
 	 
 	
+	public boolean getPropert() throws IOException {
+
+	         prop = new Properties();
+
+	        String path = "config.properties";
+	        File file = new File(path);
+	        if (file.exists()) {
+	            FileInputStream fs = new FileInputStream(path);
+	            prop.load(fs);
+	            fs.close();
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }
 	
-    String multisigaddress = System.getenv("multisigaddress");
-    String validaddress = System.getenv("validaddress");
-    String miningaddress =System.getenv("miningaddress") ;
-    String nonminingaddress = System.getenv("nonminingaddress");
-    String qty = System.getenv("qty");
-    String invalidaddress = System.getenv("invalidaddress");
-    String wrongimportaddress = System.getenv("wrongimportaddress");
+	
+  
 	
 	address Address = new address();
 	
 	public AddressTest() throws Exception{
+		
+	if (getPropert() == true) {
+            multisigaddress = Config.getProperty("multisigaddress");
+            validaddress = Config.getProperty("validaddress");
+            miningaddress = Config.getProperty("miningaddress");
+            nonminingaddress = Config.getProperty("nonminingaddress");
+            invalidaddress = Config.getProperty("invalidaddress");
+            wrongimportaddress = Config.getProperty("wrongimportaddress");
+        } else {
+            multisigaddress = System.getenv("multisigaddress");
+            validaddress = System.getenv("validaddress");
+            miningaddress = System.getenv("miningaddress");
+            nonminingaddress = System.getenv("nonminingaddress");
+            invalidaddress = System.getenv("invalidaddress");
+            wrongimportaddress = System.getenv("wrongimportaddress");
+        }	
+		
+		
+		
+		
+		
 		
 	}
 
