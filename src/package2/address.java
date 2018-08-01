@@ -1,18 +1,22 @@
-
 package package2;
 
 import okhttp3.Credentials;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okio.BufferedSource;
 import package2.Config;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Properties;
 
 
 /**
@@ -60,6 +64,24 @@ import java.util.Arrays;
 public class address {
 
  
+	 public static Properties prop;
+	
+	 public static boolean getPropert() throws IOException {
+
+	        prop = new Properties();
+
+	        String path = "config.properties";
+	        File file = new File(path);
+	        if (file.exists()) {
+	            FileInputStream fs = new FileInputStream(path);
+	            prop.load(fs);
+	            fs.close();
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }
+	
 	 /**
      * Default Constructor Class
      */
@@ -88,10 +110,21 @@ public class address {
 	        MediaType mediaType = MediaType.parse("application/json");
 	       
 	    
-             String rkuser=System.getenv("rkuser");
-	     String passwd=System.getenv("passwd");
-	     String url= System.getenv("url");
-	     String chain=System.getenv("chain");
+                        String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
 			String credential = Credentials.basic(rkuser, passwd);
 			RequestBody body = RequestBody.create(mediaType, "{\"method\":\"getnewaddress\",\"params\":[],\"id\":1,\"chain_name\":\""+chain+"\"}\n");
 	       
@@ -135,10 +168,21 @@ public class address {
      public static String getMultisigAddress(int nrequired, String key) throws JSONException, IOException
      {     
     	 
-    	     String rkuser=System.getenv("rkuser");
-	     String passwd=System.getenv("passwd");
-	     String url= System.getenv("url");
-	     String chain=System.getenv("chain");
+    	              String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
     	    String res;
     	    String keys = "";
          String output = "";
@@ -199,10 +243,21 @@ public class address {
      
      public static String getMultisigWalletAddress(int nrequired, String key) throws IOException, JSONException{
 
-    	 String rkuser=System.getenv("rkuser");
-	     String passwd=System.getenv("passwd");
-	     String url= System.getenv("url");
-	     String chain=System.getenv("chain");	   
+    	           String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }	   
   	    String res;
   	    String address;
 
@@ -261,11 +316,21 @@ public class address {
      
      
      public static String retrieveAddress() throws IOException, JSONException {
-
-     	 String rkuser=System.getenv("rkuser");
-	     String passwd=System.getenv("passwd");
-	     String url= System.getenv("url");
-	     String chain=System.getenv("chain");	   
+          String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }	   
   	    String address;
     	 
     	 
@@ -317,10 +382,21 @@ public class address {
      
      public static String checkifValid(String address) throws IOException, JSONException{
 
-    	  String rkuser=System.getenv("rkuser");
-	     String passwd=System.getenv("passwd");
-	     String url= System.getenv("url");
-	     String chain=System.getenv("chain");
+    	           String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
             address = "\""+address+"\"";
 
          OkHttpClient client = new OkHttpClient();
@@ -374,10 +450,21 @@ public class address {
       
     	 
     	 
-    	  String rkuser=System.getenv("rkuser");
-	     String passwd=System.getenv("passwd");
-	     String url= System.getenv("url");
-	     String chain=System.getenv("chain");
+    	            String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
     	 address = "\""+address+"\"";
 
          OkHttpClient client = new OkHttpClient();
@@ -432,10 +519,21 @@ public class address {
      public static int checkBalance(String address) throws IOException, JSONException{
     	 
     	 
-    	 String rkuser=System.getenv("rkuser");
-	     String passwd=System.getenv("passwd");
-	     String url= System.getenv("url");
-	     String chain=System.getenv("chain");
+    	          String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
          address = "\""+address+"\"";
 
          OkHttpClient client = new OkHttpClient();
@@ -480,10 +578,21 @@ public class address {
      
      public static String importAddress(String public_address) throws IOException, JSONException{
     	 
-    	  String rkuser=System.getenv("rkuser");
-	     String passwd=System.getenv("passwd");
-	     String url= System.getenv("url");
-	     String chain=System.getenv("chain");
+    	            String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
          public_address = "\""+public_address+"\"";
          boolean False = false;
          OkHttpClient client = new OkHttpClient();
