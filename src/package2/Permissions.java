@@ -14,6 +14,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Properties;
+import java.io.File;
+import java.io.FileInputStream;
+
 
 /**
  * <h1>Permissions Class Usage</h1>
@@ -53,6 +57,23 @@ import java.util.Arrays;
 public class Permissions {
 
    
+      	 public static Properties prop;
+	
+	 public static boolean getPropert() throws IOException {
+
+	        prop = new Properties();
+
+	        String path = "config.properties";
+	        File file = new File(path);
+	        if (file.exists()) {
+	            FileInputStream fs = new FileInputStream(path);
+	            prop.load(fs);
+	            fs.close();
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }
 
 	  /**
      * Default Constructor Class
@@ -81,10 +102,21 @@ public class Permissions {
     	  
     	  String resp;
     	
-    	 String rkuser=Config.getProperty("rkuser");
-   	     String passwd=Config.getProperty("passwd");
-   	     String url= Config.getProperty("url");
-   	     String chain=Config.getProperty("chain");
+    	 String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
         // public_address = "\""+public_address+"\"";
          //boolean False = false;
          OkHttpClient client = new OkHttpClient();
@@ -134,10 +166,21 @@ public class Permissions {
     
     public static String revokePermission(String address, String permissions) throws IOException, JSONException {
 
-    	 String rkuser=Config.getProperty("rkuser");
-  	     String passwd=Config.getProperty("passwd");
-  	     String url= Config.getProperty("url");
-  	     String chain=Config.getProperty("chain");
+    	 String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
   	     String resp;
   	     
   	   OkHttpClient client = new OkHttpClient();
