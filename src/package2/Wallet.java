@@ -14,6 +14,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Properties;
+import java.io.File;
+import java.io.FileInputStream;
 
 /**
  * <h1>Wallet Class Usage</h1>
@@ -72,6 +75,26 @@ public class Wallet {
 	    private String resp;
 	    */
 		
+	
+	
+	
+	 public static Properties prop;
+	
+	 public static boolean getPropert() throws IOException {
+
+	        prop = new Properties();
+
+	        String path = "config.properties";
+	        File file = new File(path);
+	        if (file.exists()) {
+	            FileInputStream fs = new FileInputStream(path);
+	            prop.load(fs);
+	            fs.close();
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }
     
 	/**
      * Default Constructor Class
@@ -99,10 +122,21 @@ public class Wallet {
     	    String resp;
     	
     	
-    	    String rkuser=Config.getProperty("rkuser");
-    	    String passwd=Config.getProperty("passwd");
-    	    String url= Config.getProperty("url");
-    	    String chain=Config.getProperty("chain");
+    	    String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
     	    
     	    OkHttpClient client = new OkHttpClient();
 
@@ -165,10 +199,21 @@ public class Wallet {
     public static String getPrivateKey(String public_address) throws IOException, JSONException {
 
         public_address = "\"" + public_address + "\"";
-        String rkuser=Config.getProperty("rkuser");
-	    String passwd=Config.getProperty("passwd");
-	    String url= Config.getProperty("url");
-	    String chain=Config.getProperty("chain");
+         String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
 	    
 	    OkHttpClient client = new OkHttpClient();
 
@@ -216,10 +261,21 @@ public class Wallet {
     public static JSONObject retrieveWalletinfo() throws IOException, JSONException {
 
     	String resp;
-    	String rkuser=Config.getProperty("rkuser");
- 	    String passwd=Config.getProperty("passwd");
- 	    String url= Config.getProperty("url");
- 	    String chain=Config.getProperty("chain");
+    	  String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
  	    
  	    OkHttpClient client = new OkHttpClient();
 
@@ -268,10 +324,21 @@ public class Wallet {
     public static String backupWallet(String filename) throws IOException, JSONException {
 
     	String resp;
-    	String rkuser=Config.getProperty("rkuser");
- 	    String passwd=Config.getProperty("passwd");
- 	    String url= Config.getProperty("url");
- 	    String chain=Config.getProperty("chain");
+    	  String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
  	    
  	    OkHttpClient client = new OkHttpClient();
 
@@ -323,10 +390,21 @@ public class Wallet {
     public static String importWallet(String filename) throws IOException, JSONException {
 
     	String resp;
-    	String rkuser=Config.getProperty("rkuser");
- 	    String passwd=Config.getProperty("passwd");
- 	    String url= Config.getProperty("url");
- 	    String chain=Config.getProperty("chain");
+    	  String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
  	    
  	    OkHttpClient client = new OkHttpClient();
 
@@ -376,10 +454,21 @@ public class Wallet {
     public static String dumpWallet(String filename) throws IOException, JSONException {
 
     	String resp;
-    	String rkuser=Config.getProperty("rkuser");
- 	    String passwd=Config.getProperty("passwd");
- 	    String url= Config.getProperty("url");
- 	    String chain=Config.getProperty("chain");
+    	  String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
  	    
  	    OkHttpClient client = new OkHttpClient();
 
@@ -429,10 +518,21 @@ public class Wallet {
     public static String lockWallet(String password) throws IOException, JSONException {
 
     	String resp;
-    	String rkuser=Config.getProperty("rkuser");
- 	    String passwd=Config.getProperty("passwd");
- 	    String url= Config.getProperty("url");
- 	    String chain=Config.getProperty("chain");
+    	  String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
  	    
  	    OkHttpClient client = new OkHttpClient();
 
@@ -482,10 +582,21 @@ public class Wallet {
     public static String unlockWallet(String password, int unlock_time) throws IOException, JSONException {
 
     	String resp;
-    	String rkuser=Config.getProperty("rkuser");
- 	    String passwd=Config.getProperty("passwd");
- 	    String url= Config.getProperty("url");
- 	    String chain=Config.getProperty("chain");
+    	  String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
  	    
  	    OkHttpClient client = new OkHttpClient();
 
@@ -538,10 +649,21 @@ public class Wallet {
 
     	
     	String resp;
-    	String rkuser=Config.getProperty("rkuser");
- 	    String passwd=Config.getProperty("passwd");
- 	    String url= Config.getProperty("url");
- 	    String chain=Config.getProperty("chain");
+    	  String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
  	    
  	    OkHttpClient client = new OkHttpClient();
 
@@ -591,10 +713,21 @@ public class Wallet {
 
     	String resp;
     	String signedMessage;
-    	String rkuser=Config.getProperty("rkuser");
- 	    String passwd=Config.getProperty("passwd");
- 	    String url= Config.getProperty("url");
- 	    String chain=Config.getProperty("chain");
+    	  String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
  	    
  	    OkHttpClient client = new OkHttpClient();
 
@@ -643,10 +776,21 @@ public class Wallet {
         signedMessage = "\"" +signedMessage+ "\"";
         message = "\"" +message+ "\"";
 
-        String rkuser=Config.getProperty("rkuser");
- 	    String passwd=Config.getProperty("passwd");
- 	    String url= Config.getProperty("url");
- 	    String chain=Config.getProperty("chain");
+          String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = Config.getProperty("url");
+	            rkuser = Config.getProperty("rkuser");
+	            passwd = Config.getProperty("passwd");
+	            chain = Config.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
  	    
  	    OkHttpClient client = new OkHttpClient();
 
