@@ -3,7 +3,9 @@ package package2.Test;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,13 +17,45 @@ import package2.stream;
 
 public class StreamTest {
 	
+    public Properties prop;
+    public String miningaddress;
+    public String stream;
+    public String testdata;
+    stream Stream = new stream();
 	
-	   stream Stream = new stream();
-	    String miningaddress = System.getenv("miningaddress");
-	    String stream = System.getenv("stream");
-	    String testdata = System.getenv("key");
+	
+	 public boolean getPropert() throws IOException {
 
-	    public StreamTest() throws IOException {}
+        prop = new Properties();
+
+        String path = "config.properties";
+        File file = new File(path);
+        if (file.exists()) {
+            FileInputStream fs = new FileInputStream(path);
+            prop.load(fs);
+            fs.close();
+            return true;
+        } else {
+            return false;
+        }
+    }
+	
+	
+	
+
+	    public StreamTest() throws IOException {
+	    if (getPropert() == true) {
+            miningaddress = prop.getProperty("miningaddress");
+            stream = prop.getProperty("stream");
+            testdata = prop.getProperty("key");
+        } else {
+            miningaddress = System.getenv("miningaddress");
+            stream = System.getenv("stream");
+            testdata = System.getenv("key");
+        }
+	    
+	    
+	    }
 
 	    @Test
 	    public void publishs() throws Exception {
