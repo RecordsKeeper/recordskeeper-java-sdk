@@ -44,21 +44,14 @@ public class TransactionsTest {
         }
     }
 	
-	    String miningaddress = System.getenv("miningaddress");
-	    String validaddress = System.getenv("validaddress");
-	    double amount = Double.parseDouble(System.getenv("amount"));
-	    String testdata = System.getenv("testdata");
-	    String dumptxhex = System.getenv("dumptxhex");
-	    String privatekey = System.getenv("privatekey");
-	    String dumpsignedtxhex = System.getenv("dumpsignedtxhex");
-	    String dumptxid = System.getenv("dumptxid");
+	    
 
 	    public TransactionsTest() throws IOException {
 	
          if (getPropert() == true) {
             validaddress = prop.getProperty("validaddress");
             miningaddress = prop.getProperty("miningaddress");
-           amount = Double.parseDouble(Config.getProperty("amount"));
+            amount = Double.parseDouble(Config.getProperty("amount"));
             testdata = prop.getProperty("testdata");
             dumptxhex = prop.getProperty("dumptxhex");
             privatekey = prop.getProperty("privatekey");
