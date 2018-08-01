@@ -15,6 +15,12 @@ import package2.blockchain;
 
 
 public class BlockchainTest {
+	
+	
+    public Properties prop;
+    public String chain;
+    public String stream;
+    public int port;
 
      public boolean getPropert() throws IOException {
 
@@ -31,11 +37,7 @@ public class BlockchainTest {
 	            return false;
 	        }
 	    }	
-   
-    String chain;
-    String stream;
-   
-    int port;
+  
 
     public BlockchainTest() throws IOException {
     
