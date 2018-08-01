@@ -12,8 +12,11 @@ import package2.Config;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Properties;
 
 /**
  * <h1>Assets Class Usage</h1>
@@ -58,6 +61,24 @@ import java.util.Arrays;
 
 public class Assets {
 
+	
+	 public static Properties prop;
+	
+	 public static boolean getPropert() throws IOException {
+
+	        prop = new Properties();
+
+	        String path = "config.properties";
+	        File file = new File(path);
+	        if (file.exists()) {
+	            FileInputStream fs = new FileInputStream(path);
+	            prop.load(fs);
+	            fs.close();
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    }
  
 	 /**
      * Default Constructor Class
@@ -87,10 +108,21 @@ public class Assets {
 	          
 	        String resp;
 	        
-			String rkuser=Config.getProperty("rkuser");
-			String passwd=Config.getProperty("passwd");
-			String chain=Config.getProperty("chain");
-			String url=Config.getProperty("url");
+			String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
 
 		    OkHttpClient client = new OkHttpClient();
 		    MediaType mediaType = MediaType.parse("application/json");
@@ -141,10 +173,21 @@ public class Assets {
 		     int issue_qty;
 		     String resp;
 	    	
-			String rkuser=Config.getProperty("rkuser");
-			String passwd=Config.getProperty("passwd");
-			String chain=Config.getProperty("chain");
-			String url=Config.getProperty("url");
+			String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
 
 		    OkHttpClient client = new OkHttpClient();
 		    MediaType mediaType = MediaType.parse("application/json");
@@ -207,10 +250,21 @@ public class Assets {
 	        asset_name = "\"" + asset_name + "\"";
 	        String resp;
 	        
-	        String rkuser=Config.getProperty("rkuser");
-			String passwd=Config.getProperty("passwd");
-			String chain=Config.getProperty("chain");
-			String url=Config.getProperty("url");
+	       String rkuser;
+			String passwd;
+			String chain;
+			String url;
+	        if (getPropert() == true) {
+	            url = prop.getProperty("url");
+	            rkuser = prop.getProperty("rkuser");
+	            passwd = prop.getProperty("passwd");
+	            chain = prop.getProperty("chain");
+	        } else {
+	            url = System.getenv("url");
+	            rkuser = System.getenv("rkuser");
+	            passwd = System.getenv("passwd");
+	            chain = System.getenv("chain");
+	        }
 
 		    OkHttpClient client = new OkHttpClient();
 		    MediaType mediaType = MediaType.parse("application/json");
