@@ -1,4 +1,4 @@
-package package2;
+package RecordsKeeperJavaLib;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

@@ -1,4 +1,4 @@
-package package2.Test;
+package RecordsKeeperJavaLib.Test;
 
 import static org.junit.Assert.*;
 
@@ -11,8 +11,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import package2.Config;
-import package2.stream;
+import RecordsKeeperJavaLib.Config;
+import RecordsKeeperJavaLib.stream;
 
 
 public class StreamTest {
@@ -40,9 +40,6 @@ public class StreamTest {
         }
     }
 	
-	
-	
-
 	    public StreamTest() throws IOException {
 	    if (getPropert() == true) {
             miningaddress = prop.getProperty("miningaddress");
@@ -76,7 +73,7 @@ public class StreamTest {
 	    public void retrieveWithAddress() throws IOException, JSONException {
 	    	JSONObject res=Stream.retrieveWithAddress(stream, miningaddress);
 	        String data = res.getString("data");
-	     //   System.out.println(data);
+	        //System.out.println(data);
 	        assertEquals(data, "5468697320697320746573742064617461");
 	    }
 		    

@@ -1,4 +1,4 @@
-package package2 ;
+package RecordsKeeperJavaLib ;
 
 
 import okhttp3.Credentials;
@@ -12,10 +12,13 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.BufferedSource;
-import package2.Config;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import RecordsKeeperJavaLib.Config;
+
 import static java.lang.Math.abs;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -42,7 +45,7 @@ import java.util.Properties;
  * import okhttp3.Request;<br>
  * import okhttp3.RequestBody;<br>
  * import okhttp3.Response;<br>
- * import package2.Config;<br>
+ * import RecordsKeeperJavaLib.Config;<br>
  * import org.json.JSONArray;<br>
  * import org.json.JSONException;<br>
  * import org.json.JSONObject;<br>
@@ -67,7 +70,7 @@ import java.util.Properties;
 
 public class transactions {
 
-/*     String sender_address;
+/*   String sender_address;
      String reciever_address;
      String data;
      double amount;
@@ -120,10 +123,7 @@ public class transactions {
      * @param data hex value of the data
      * @param amount Amount to be sent in transaction
      * @return It will return the transaction id of the raw transaction.
-     */
-
-    
-    
+     */   
     
     public static String sendTransaction(String sender_address, String reciever_address, String data, double amount) throws IOException, JSONException {
 
@@ -390,10 +390,6 @@ public class transactions {
      * @return It will return transaction id of the signed transaction.
      */
 
-    
-    
-    
-    
     public static String sendSignedTransaction(String sender_address, String reciever_address, double amount, String private_key, String data) throws IOException, JSONException {
 
     	String resp;

@@ -1,4 +1,4 @@
-package package2.Test;
+package RecordsKeeperJavaLib.Test;
 
 import static org.junit.Assert.*;
 import java.io.File;
@@ -11,8 +11,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import package2.Config;
-import package2.transactions;
+import RecordsKeeperJavaLib.Config;
+import RecordsKeeperJavaLib.transactions;
 
 
 public class TransactionsTest {

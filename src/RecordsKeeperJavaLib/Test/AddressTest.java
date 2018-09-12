@@ -1,4 +1,4 @@
-package package2.Test;
+package RecordsKeeperJavaLib.Test;
 
 import static org.junit.Assert.*;
 
@@ -11,14 +11,12 @@ import java.util.Properties;
 import org.json.JSONException;
 import org.junit.Test;
 
-import package2.Config;
-import package2.address;
-
- 
+import RecordsKeeperJavaLib.Config;
+import RecordsKeeperJavaLib.address;
 
 public class AddressTest {
 	
-        String multisigaddress;
+    String multisigaddress;
 	String validaddress;
 	String miningaddress;
 	String nonminingaddress;
@@ -30,7 +28,7 @@ public class AddressTest {
 	
 	public boolean getPropert() throws IOException {
 
-	         prop = new Properties();
+	        prop = new Properties();
 
 	        String path = "config.properties";
 	        File file = new File(path);
@@ -44,20 +42,17 @@ public class AddressTest {
 	        }
 	    }
 	
-	
-  
-	
 	address Address = new address();
 	
 	public AddressTest() throws Exception{
 		
 	if (getPropert() == true) {
-            multisigaddress = Config.getProperty("multisigaddress");
-            validaddress = Config.getProperty("validaddress");
-            miningaddress = Config.getProperty("miningaddress");
-            nonminingaddress = Config.getProperty("nonminingaddress");
-            invalidaddress = Config.getProperty("invalidaddress");
-            wrongimportaddress = Config.getProperty("wrongimportaddress");
+            multisigaddress = prop.getProperty("multisigaddress");
+            validaddress = prop.getProperty("validaddress");
+            miningaddress = prop.getProperty("miningaddress");
+            nonminingaddress = prop.getProperty("nonminingaddress");
+            invalidaddress = prop.getProperty("invalidaddress");
+            wrongimportaddress = prop.getProperty("wrongimportaddress");
         } else {
             multisigaddress = System.getenv("multisigaddress");
             validaddress = System.getenv("validaddress");
@@ -66,12 +61,7 @@ public class AddressTest {
             invalidaddress = System.getenv("invalidaddress");
             wrongimportaddress = System.getenv("wrongimportaddress");
         }	
-		
-		
-		
-		
-		
-		
+	
 	}
 
 	@Test
@@ -101,7 +91,7 @@ public class AddressTest {
 	    public void checkifvalid() throws Exception{
 
 	        String res4 = address.checkifValid(validaddress);
-	        System.out.println(res4 + "dfgh");
+	        System.out.println(res4);
 	        assertEquals(res4, "The Address is Valid" );
 
 	    }
@@ -110,7 +100,7 @@ public class AddressTest {
 	    public void failcheckifvalid() throws Exception{
 
 	        String res5 = address.checkifValid(invalidaddress);
-	        System.out.println(res5 + "yayyyyyyyy");
+	        System.out.println(res5);
 	        assertEquals(res5, "The Address is Valid");
 
 	    }
@@ -135,10 +125,8 @@ public class AddressTest {
 	    public void checkBalance() throws Exception{
 
 	        int balance = address.checkBalance(nonminingaddress);
-	        System.out.println(balance);
-	        assertEquals(balance, 7);
-
-	 
+	        
+	        assertNotNull(balance);
 	 } 
 	 
 	 
@@ -151,7 +139,7 @@ public class AddressTest {
 	 @Test
 	    public void wrongimportAddress() throws Exception{
 	        String public_address = address.importAddress(wrongimportaddress);
-	        assertEquals(public_address, "Address not successfully ");
+	        assertEquals(public_address, "Invalid Address");
 	    }
 
 	 

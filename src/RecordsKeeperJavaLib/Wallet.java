@@ -1,4 +1,4 @@
-package package2;
+package RecordsKeeperJavaLib;
 
 import okhttp3.Credentials;
 import okhttp3.HttpUrl;
@@ -8,10 +8,13 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.BufferedSource;
-import package2.Config;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import RecordsKeeperJavaLib.Config;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
@@ -31,7 +34,7 @@ import java.io.FileInputStream;
  * import okhttp3.Request;<br>
  * import okhttp3.RequestBody;<br>
  * import okhttp3.Response;<br>
- * import package2.Config;<br>
+ * import RecordsKeeperJavaLib.Config;<br>
  * import org.json.JSONArray;<br>
  * import org.json.JSONException;<br>
  * import org.json.JSONObject;<br>

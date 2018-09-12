@@ -1,4 +1,4 @@
-package package2;
+package RecordsKeeperJavaLib;
 
 import okhttp3.Credentials;
 import okhttp3.HttpUrl;
@@ -8,16 +8,18 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.BufferedSource;
-import package2.Config;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import RecordsKeeperJavaLib.Config;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
-
 
 /**
  * <h1>Address Class Usage</h1>
@@ -35,7 +37,7 @@ import java.util.Properties;
  * import okhttp3.Request;<br>
  * import okhttp3.RequestBody;<br>
  * import okhttp3.Response;<br>
- * import package2.Config;<br>
+ * import RecordsKeeperJavaLib.Config;<br>
  * import org.json.JSONArray;<br>
  * import org.json.JSONException;<br>
  * import org.json.JSONObject;<br>
@@ -57,12 +59,7 @@ import java.util.Properties;
  * Now we have node authentication credentials.
  */
 
-
-
-
-
 public class address {
-
  
 	 public static Properties prop;
 	
@@ -99,18 +96,14 @@ public class address {
      * System.out.println(newAddress);                  //prints a new address </code></p>
      * @return It will return a new address of the wallet
      */
-
 		
      public static String getaddress() throws IOException, JSONException{
-	   	    
-    	 
-    	 
-    	
+	   	     
+    	    	
 	   	    OkHttpClient client = new OkHttpClient();
 	        MediaType mediaType = MediaType.parse("application/json");
-	       
-	    
-                        String rkuser;
+  
+            String rkuser;
 			String passwd;
 			String chain;
 			String url;
@@ -136,21 +129,18 @@ public class address {
 	                .addHeader("Content-Type", "application/json")
 	                .addHeader("Cache-Control", "no-cache")
 	                .header("Authorization", credential)
-	                .build();
-        
-
+	                .build();        
 	       	        
 	        Response response = client.newCall(request).execute();       
 	        String a = response.body().string();
-	        //System.out.println(a);
+	        
 	        JSONObject object = new JSONObject(a);
 	        String result = object.getString("result");
-	        //System.out.println(result);
+	        
 	        return result;
 			
 	  }
-	  
-     
+	    
      /**
       * Generate a new multisignature address.
       * <p><code>getMultisigAddress(nrequired, key); <br>
@@ -160,15 +150,11 @@ public class address {
       * @param nrequired to pass the no of signatures that are must to sign a transaction
       * @param key  pass any no of comma-seperated public addresses that are to be used with this multisig address as a single variable
       * @return It will return a new multisignature address on RecordsKeeper Blockchain.
-      */
-     
-    
-     
+      */  
 
      public static String getMultisigAddress(int nrequired, String key) throws JSONException, IOException
-     {     
-    	 
-    	              String rkuser;
+     {        	 
+    	    String rkuser;
 			String passwd;
 			String chain;
 			String url;
@@ -183,10 +169,12 @@ public class address {
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
-    	    String res;
-    	    String keys = "";
-         String output = "";
-         String[] key_list = key.split(",");
+	        
+    	   String res;
+    	   String keys = "";
+           String output = "";
+           String[] key_list = key.split(",");
+     
          for (int i = 0; i < key_list.length; i++){
              keys = "\"" + key_list[i] + "\"";
              if(i!=key_list.length-1)
@@ -243,7 +231,7 @@ public class address {
      
      public static String getMultisigWalletAddress(int nrequired, String key) throws IOException, JSONException{
 
-    	           String rkuser;
+    	    String rkuser;
 			String passwd;
 			String chain;
 			String url;
@@ -257,9 +245,10 @@ public class address {
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
-	        }	   
-  	    String res;
-  	    String address;
+	        }	
+	        
+  	     String res;
+  	     String address;
 
          String keys = "";
          String output = "";
@@ -311,10 +300,7 @@ public class address {
       * System.out.println(address_count);     //prints the address count</code></p>
       * @return It will return all the addresses and the count of the addresses on the wallet.
       */
-     
-     
-     
-     
+         
      public static String retrieveAddress() throws IOException, JSONException {
           String rkuser;
 			String passwd;
@@ -331,11 +317,8 @@ public class address {
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }	   
-  	    String address;
+  	     String address;
     	 
-    	 
-    	 
-
          OkHttpClient client = new OkHttpClient();
          MediaType mediaType = MediaType.parse("application/json");
 
@@ -362,10 +345,7 @@ public class address {
 
          return address;
      }
-     
-     
-     
-     
+        
      /**
       * Check validity of the address.<br>
       * checkifValid() function is used to check validity of a particular address.
@@ -375,14 +355,11 @@ public class address {
       * You have to pass address as argument to the checkifValid function call:
       * @param address to check the validity
       * @return It will return if an address is valid or not.
-      */
-     
-     
-     
+      */ 
      
      public static String checkifValid(String address) throws IOException, JSONException{
 
-    	           String rkuser;
+    	    String rkuser;
 			String passwd;
 			String chain;
 			String url;
@@ -397,7 +374,8 @@ public class address {
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
-            address = "\""+address+"\"";
+         
+	     address = "\""+address+"\"";
 
          OkHttpClient client = new OkHttpClient();
 
@@ -420,10 +398,11 @@ public class address {
          Boolean valid = jsonObject1.getBoolean("isvalid");
          String add1 = "";
          if (valid) {
-             add1 = "The Address is Valid";
+             add1 = "Valid Address";
          }
-         else
-             add1 = "The Address is not Valid";
+         else {
+             add1 = "Invalid Address";
+         }
          return add1;
 
      }
@@ -445,15 +424,13 @@ public class address {
      
      
      
-     public static String checkifMineAllowed(String address) throws IOException, JSONException{
-
-      
+     public static String checkifMineAllowed(String address) throws IOException, JSONException{ 
     	 
-    	 
-    	            String rkuser;
+    	    String rkuser;
 			String passwd;
 			String chain;
 			String url;
+			
 	        if (getPropert() == true) {
 	            url = prop.getProperty("url");
 	            rkuser = prop.getProperty("rkuser");
@@ -519,7 +496,7 @@ public class address {
      public static int checkBalance(String address) throws IOException, JSONException{
     	 
     	 
-    	          String rkuser;
+    	    String rkuser;
 			String passwd;
 			String chain;
 			String url;
@@ -556,7 +533,9 @@ public class address {
          JSONArray array = jsonObject.getJSONArray("result");
          JSONObject object = array.getJSONObject(0);
          int balance = object.getInt("qty");
-
+         
+         //System.out.println(balance);
+         
          return balance;
      }
      
@@ -578,7 +557,7 @@ public class address {
      
      public static String importAddress(String public_address) throws IOException, JSONException{
     	 
-    	            String rkuser;
+    	    String rkuser;
 			String passwd;
 			String chain;
 			String url;
@@ -623,7 +602,7 @@ public class address {
                  JSONObject object= jsonObject.getJSONObject("error");
                  String objectString = object.getString("message");
                  System.out.println(objectString);
-                 add1="Address not imported successfully ";
+                 add1="Invalid Address";
              }
          }
 

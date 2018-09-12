@@ -1,4 +1,4 @@
-package package2.Test;
+package RecordsKeeperJavaLib.Test;
 
 import static org.junit.Assert.*;
 
@@ -11,8 +11,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import package2.Config;
-import package2.block;
+import RecordsKeeperJavaLib.Config;
+import RecordsKeeperJavaLib.block;
 
 
 public class BlockTest {
@@ -34,10 +34,8 @@ public class BlockTest {
         } else {
             return false;
         }
-    }
-	   
-	    
-
+    } 
+	  
 	    public BlockTest() throws IOException {
 	    
           if (getPropert() == true) {
@@ -59,9 +57,7 @@ public class BlockTest {
 	        assertEquals(size, 300);
 
 	        int nonce = res1.getInt("nonce");
-	        assertEquals(nonce, 260863);
-
-	      
+	        assertEquals(nonce, 260863);	      
 	    }
 
 	    @Test
@@ -85,5 +81,4 @@ public class BlockTest {
 	        assertEquals(txcount, 1);
 	    }
 	
-
 }

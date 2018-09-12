@@ -1,37 +1,34 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>package2</groupId>
-  <artifactId>package2</artifactId>
+  <groupId>org.recordskeeper.java</groupId>
+  <artifactId>RecordsKeeperJavaLib</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <build>
-    <sourceDirectory>src/package2</sourceDirectory>
-    <testSourceDirectory>src/package2/Test</testSourceDirectory>
+    <sourceDirectory>src/RecordsKeeperJavaLib</sourceDirectory>
+    <testSourceDirectory>src/RecordsKeeperJavaLib/Test</testSourceDirectory>
+    
     <resources>
       <resource>
-        <directory>src/package2</directory>
+        <directory>src/RecordsKeeperJavaLib</directory>
         <excludes>
           <exclude>**/*.java</exclude>
         </excludes>
       </resource>
     </resources>
+    
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
+    	<version>3.7.0</version>
         <configuration>
           <source/>
           <target/>
         </configuration>
       </plugin>
-      
-      
-      
-      
-      
-    
-        <plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-surefire-plugin</artifactId>
+ <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>2.22.0</version>
   <configuration>
     <excludes>
       <exclude>**/*AddressTest.java</exclude>
@@ -54,50 +51,51 @@
       </configuration>
     </execution>
   </executions>
-</plugin>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    </plugins>
+</plugin>   
+</plugins>
  </build>
+ <properties>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
+  </properties>
   <dependencies>
-  	<dependency>
-  		<groupId>org.json</groupId>
-  		<artifactId>json</artifactId>
-  		<version>20180130</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>io.github.openunirest</groupId>
-  		<artifactId>unirest-java</artifactId>
-  		<version>2.2.08</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>com.squareup.okhttp3</groupId>
-  		<artifactId>okhttp</artifactId>
-  		<version>3.11.0</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>com.squareup.okio</groupId>
-  		<artifactId>okio</artifactId>
-  		<version>1.14.1</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>junit</groupId>
-  		<artifactId>junit</artifactId>
-  		<version>4.12</version>
-  	</dependency>
+  
+<!-- https://mvnrepository.com/artifact/junit/junit -->
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.12</version>
+	    
+	</dependency>
+  
+<!-- https://mvnrepository.com/artifact/org.json/json -->
+	<dependency>
+	    <groupId>org.json</groupId>
+	    <artifactId>json</artifactId>
+	    <version>20180813</version>
+	</dependency>
+
+<!-- https://mvnrepository.com/artifact/io.github.openunirest/unirest-java -->
+	<dependency>
+	    <groupId>io.github.openunirest</groupId>
+	    <artifactId>unirest-java</artifactId>
+	    <version>2.4.01</version>
+	</dependency>
+
+
+<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+	<dependency>
+    	<groupId>com.squareup.okhttp3</groupId>
+    	<artifactId>okhttp</artifactId>
+    	<version>3.11.0</version>
+	</dependency>
+
+<!-- https://mvnrepository.com/artifact/com.squareup.okio/okio -->
+	<dependency>
+	    <groupId>com.squareup.okio</groupId>
+	    <artifactId>okio</artifactId>
+	    <version>2.0.0</version>
+	</dependency>
+	
   </dependencies>
 </project>

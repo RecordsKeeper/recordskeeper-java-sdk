@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Asus/Downloads/org.json.jar/org.json.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Asus/Downloads/unirest-java-1.4.7.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Asus/Downloads/okhttp-1.2.1-jar-with-dependencies.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Asus/Downloads/okhttp-3.10.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Asus/Downloads/jar_files (2)/okio-1.14.1.jar"/>
+	<classpathentry including="**/*.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

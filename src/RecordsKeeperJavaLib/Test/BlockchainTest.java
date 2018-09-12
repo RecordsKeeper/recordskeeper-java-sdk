@@ -1,4 +1,4 @@
-package package2.Test;
+package RecordsKeeperJavaLib.Test;
 
 import static org.junit.Assert.*;
 
@@ -10,8 +10,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import package2.Config;
-import package2.blockchain;
+import RecordsKeeperJavaLib.Config;
+import RecordsKeeperJavaLib.blockchain;
 
 
 public class BlockchainTest {
