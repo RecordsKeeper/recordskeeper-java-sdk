@@ -56,14 +56,7 @@ import java.io.FileInputStream;
  * Now we have node authentication credentials.
  */
 
-
-
-
-
 public class Wallet {
-
-	
-	
 
 	 /* private String public_address;
 	    private String filename;
@@ -77,10 +70,7 @@ public class Wallet {
 	    private String signedMessage;
 	    private String resp;
 	    */
-		
-	
-	
-	
+
 	 public static Properties prop;
 	
 	 public static boolean getPropert() throws IOException {
@@ -105,9 +95,7 @@ public class Wallet {
 
     
     public Wallet() throws IOException {}
-	
-	
-    
+  
     /**
      *  Create wallet on RecordsKeeper blockchain. <br>
      *  createWallet() function is used to create wallet on RecordsKeeper blockchain.
@@ -122,30 +110,30 @@ public class Wallet {
     
     public static JSONObject createWallet() throws IOException, JSONException {
 
-    	    String resp;
-    	
-    	
-    	    String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	String resp;
+    	String rkuser;
+    	String passwd;
+		String chain;
+		String url;
+		
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
     	    
-    	    OkHttpClient client = new OkHttpClient();
+	    OkHttpClient client = new OkHttpClient();
 
-            MediaType mediaType = MediaType.parse("application/json");
+	    MediaType mediaType = MediaType.parse("application/json");
 
-            String credential = Credentials.basic(rkuser, passwd);
+        String credential = Credentials.basic(rkuser, passwd);
         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"createkeypairs\",\"params\":[],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
         Request request = new Request.Builder()
                 .url(url)
@@ -164,8 +152,6 @@ public class Wallet {
         String private_key = object.getString("privkey");
         String public_key = object.getString("pubkey");
 
-        public_address = "\"" + public_address + "\"";
-
         boolean False = false;
 
         RequestBody body1 = RequestBody.create(mediaType, "{\"method\":\"importaddress\",\"params\":[" + public_address + ",\"\"," + False + "],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
@@ -179,14 +165,16 @@ public class Wallet {
 
         Response response1 = client.newCall(request1).execute();
         String resp1 = response1.body().string();
+        
         JSONObject item = new JSONObject(resp1);
+        
         item.put("public_address", public_address);
         item.put("private_key", private_key);
         item.put("public_key", public_key);
 
         return item;
+        
     }
-    
     
     /**
      * Retrieve private key of an address.
@@ -197,21 +185,21 @@ public class Wallet {
      * @param public_address address whose private key is to be retrieved
      * @return It will return private key of the given address.
      */
-    
-    
+
     public static String getPrivateKey(String public_address) throws IOException, JSONException {
 
         public_address = "\"" + public_address + "\"";
-         String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+        String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
@@ -236,7 +224,7 @@ public class Wallet {
         String resp;
         Response response = client.newCall(request).execute();
         resp = response.body().string();
-        System.out.println(resp);
+        
         JSONObject jsonObject = new JSONObject(resp);
         String private_key = "";
         if (jsonObject.isNull("result")) {
@@ -263,17 +251,17 @@ public class Wallet {
     
     public static JSONObject retrieveWalletinfo() throws IOException, JSONException {
 
-    	String resp;
-    	  String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	          } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
@@ -282,9 +270,9 @@ public class Wallet {
  	    
  	    OkHttpClient client = new OkHttpClient();
 
-         MediaType mediaType = MediaType.parse("application/json");
+        MediaType mediaType = MediaType.parse("application/json");
 
-         String credential = Credentials.basic(rkuser, passwd);
+        String credential = Credentials.basic(rkuser, passwd);
         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"getwalletinfo\",\"params\":[],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
         Request request = new Request.Builder()
                 .url(url)
@@ -294,6 +282,7 @@ public class Wallet {
                 .header("Authorization", credential)
                 .build();
 
+        String resp;
         Response response = client.newCall(request).execute();
         resp = response.body().string();
         JSONObject jsonObject = new JSONObject(resp);
@@ -327,16 +316,17 @@ public class Wallet {
     public static String backupWallet(String filename) throws IOException, JSONException {
 
     	String resp;
-    	  String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	           } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
@@ -345,9 +335,9 @@ public class Wallet {
  	    
  	    OkHttpClient client = new OkHttpClient();
 
-         MediaType mediaType = MediaType.parse("application/json");
+        MediaType mediaType = MediaType.parse("application/json");
 
-         String credential = Credentials.basic(rkuser, passwd);
+        String credential = Credentials.basic(rkuser, passwd);
     	
         filename = "\"" + filename + "\"";
         
@@ -393,16 +383,17 @@ public class Wallet {
     public static String importWallet(String filename) throws IOException, JSONException {
 
     	String resp;
-    	  String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	String rkuser;
+    	String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
@@ -411,9 +402,9 @@ public class Wallet {
  	    
  	    OkHttpClient client = new OkHttpClient();
 
-         MediaType mediaType = MediaType.parse("application/json");
+        MediaType mediaType = MediaType.parse("application/json");
 
-         String credential = Credentials.basic(rkuser, passwd);
+        String credential = Credentials.basic(rkuser, passwd);
     	
         filename = "\"" + filename + "\"";
 
@@ -430,6 +421,7 @@ public class Wallet {
         resp = response.body().string();
         JSONObject jsonObject = new JSONObject(resp);
         String result = "";
+        
         if (jsonObject.isNull("result"))
             result = "Wallet is successfully imported";
         else {
@@ -457,16 +449,17 @@ public class Wallet {
     public static String dumpWallet(String filename) throws IOException, JSONException {
 
     	String resp;
-    	  String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
@@ -475,9 +468,9 @@ public class Wallet {
  	    
  	    OkHttpClient client = new OkHttpClient();
 
-         MediaType mediaType = MediaType.parse("application/json");
+        MediaType mediaType = MediaType.parse("application/json");
 
-         String credential = Credentials.basic(rkuser, passwd);
+        String credential = Credentials.basic(rkuser, passwd);
     	
     	filename = "\"" + filename + "\"";
 
@@ -494,6 +487,7 @@ public class Wallet {
         resp = response.body().string();
         JSONObject object = new JSONObject(resp);
         String res = "";
+        
         if (object.isNull("result"))
             res = "Wallet is successfully dumped";
         else {
@@ -521,16 +515,17 @@ public class Wallet {
     public static String lockWallet(String password) throws IOException, JSONException {
 
     	String resp;
-    	  String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
@@ -539,9 +534,9 @@ public class Wallet {
  	    
  	    OkHttpClient client = new OkHttpClient();
 
-         MediaType mediaType = MediaType.parse("application/json");
+        MediaType mediaType = MediaType.parse("application/json");
 
-         String credential = Credentials.basic(rkuser, passwd);
+        String credential = Credentials.basic(rkuser, passwd);
     	
     	password = "\"" + password + "\"";
 
@@ -558,6 +553,7 @@ public class Wallet {
         resp = response.body().string();
         JSONObject object = new JSONObject(resp);
         String res = "";
+        
         if (object.isNull("result")) {
             res = "Wallet is successfully encrypted.";
         } else {
@@ -585,16 +581,17 @@ public class Wallet {
     public static String unlockWallet(String password, int unlock_time) throws IOException, JSONException {
 
     	String resp;
-    	  String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	String rkuser;
+    	String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
@@ -603,13 +600,12 @@ public class Wallet {
  	    
  	    OkHttpClient client = new OkHttpClient();
 
-         MediaType mediaType = MediaType.parse("application/json");
+        MediaType mediaType = MediaType.parse("application/json");
 
-         String credential = Credentials.basic(rkuser, passwd);
+        String credential = Credentials.basic(rkuser, passwd);
     	
         password = "\"" + password + "\"";
         
-
         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"walletpassphrase\",\"params\":[" + password + "," + unlock_time + "],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
         Request request = new Request.Builder()
                 .url(url)
@@ -623,6 +619,7 @@ public class Wallet {
         resp = response.body().string();
         JSONObject object = new JSONObject(resp);
         String res = "";
+        
         if (object.isNull("result")) {
             res = "Wallet is successfully encrypted.";
         } else {
@@ -632,9 +629,7 @@ public class Wallet {
         }
         return res;
     }
-    
-    
-    
+
     /**
      * Change wallet's password. <br>
      * changeWalletPassword() function is used to change wallet's password and set new password.
@@ -646,22 +641,22 @@ public class Wallet {
      * @param new_password new password of the wallet
      * @return This changes the wallets password from old-password to new-password.
      */
-    
-    
+ 
     public static String changeWalletPassword(String old_password, String new_password) throws IOException, JSONException {
 
     	
     	String resp;
-    	  String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        }
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
@@ -670,9 +665,9 @@ public class Wallet {
  	    
  	    OkHttpClient client = new OkHttpClient();
 
-         MediaType mediaType = MediaType.parse("application/json");
+        MediaType mediaType = MediaType.parse("application/json");
 
-         String credential = Credentials.basic(rkuser, passwd);
+        String credential = Credentials.basic(rkuser, passwd);
         old_password = "\"" + old_password + "\"";
         new_password = "\"" + new_password + "\"";
 
@@ -716,16 +711,17 @@ public class Wallet {
 
     	String resp;
     	String signedMessage;
-    	  String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
@@ -734,12 +730,12 @@ public class Wallet {
  	    
  	    OkHttpClient client = new OkHttpClient();
 
-         MediaType mediaType = MediaType.parse("application/json");
+        MediaType mediaType = MediaType.parse("application/json");
 
-         String credential = Credentials.basic(rkuser, passwd);	
+        String credential = Credentials.basic(rkuser, passwd);	
     	
-       private_key = "\"" + private_key + "\"";
-       message = "\"" + message + "\"";
+        private_key = "\"" + private_key + "\"";
+        message = "\"" + message + "\"";
 
         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"signmessage\",\"params\":[" + private_key + "," + message + "],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
         Request request = new Request.Builder()
@@ -753,7 +749,17 @@ public class Wallet {
         Response response = client.newCall(request).execute();
         resp = response.body().string();
         JSONObject object = new JSONObject(resp);
-        signedMessage = object.getString("result");
+        
+        if (object.isNull("result")) {
+            
+            JSONObject array = object.getJSONObject("error");  
+            signedMessage = array.getString("message");
+            
+        } else {
+        	
+        	signedMessage = object.getString("result");
+        	
+        }
 
         return signedMessage;
     }
@@ -779,27 +785,28 @@ public class Wallet {
         signedMessage = "\"" +signedMessage+ "\"";
         message = "\"" +message+ "\"";
 
-          String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+        String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	          } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
-	        }
+	           }
  	    
  	    OkHttpClient client = new OkHttpClient();
 
-         MediaType mediaType = MediaType.parse("application/json");
+        MediaType mediaType = MediaType.parse("application/json");
 
-         String credential = Credentials.basic(rkuser, passwd);	
+        String credential = Credentials.basic(rkuser, passwd);	
         
         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"verifymessage\",\"params\":[" + address+ "," + signedMessage + ","+message+"],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
         Request request = new Request.Builder()
@@ -810,19 +817,35 @@ public class Wallet {
                 .header("Authorization", credential)
                 .build();
 
-        
-        
         Response response = client.newCall(request).execute();
         resp = response.body().string();
-        System.out.println(resp);
+        
         JSONObject jsonObject = new JSONObject(resp);
-        boolean verifiedMessage = jsonObject.getBoolean("result");
+    
         String validity = "";
-        if(verifiedMessage == true)
-            validity = "Yes, message is verified";
-        else
-            validity = "No, signedMessage is not correct";
-
+        
+        if(jsonObject.isNull("result")) {
+            
+        	JSONObject error = jsonObject.getJSONObject("error");  
+            validity = error.getString("message");
+        
+        }
+        else {
+        	
+        	boolean verifiedMessage = jsonObject.getBoolean("result");
+        	
+        	if (verifiedMessage) {
+        		
+        		validity = "Signed Message is correct";
+        	}
+        	
+        	else {
+        	
+        		validity = "No, signedMessage is not correct";
+        	
+        	}
+        	
+        }
         return validity;
     }
     

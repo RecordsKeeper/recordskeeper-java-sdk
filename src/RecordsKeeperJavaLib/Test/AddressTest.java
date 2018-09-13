@@ -66,33 +66,22 @@ public class AddressTest {
 
 	@Test
 	public void getaddresstest() throws IOException, JSONException {
-	   String res1 = address.getaddress();
-	//	System.out.println(res1);
+	    String res1 = address.getaddress();
 		int address_size = res1.length();
-	//	System.out.println(address_size);
-		assertEquals(address_size,34 );
+		assertEquals(address_size,34);
 	}
 
 	@Test
 	public void getMultisigAddress() throws IOException, JSONException{
 		String res2 = address.getMultisigAddress(2, "miygjUPKZNV94t9f8FqNvNG9YjCkp5qqBZ, mwDbTVQcATL263JwpoE8AHCMGM5hE1kd7m, mpC8A8Fob9ADZQA7iLrctKtwzyWTx118Q9");
-	//	System.out.println(res2);
 		assertEquals(res2, multisigaddress);	
-	}
-	
-	@Test
-	public void retrieveAddresses() throws Exception{
-		
-		String res3=address.retrieveAddress();
-		System.out.println(res3);
 	}
 	
 	 @Test
 	    public void checkifvalid() throws Exception{
 
 	        String res4 = address.checkifValid(validaddress);
-	        System.out.println(res4);
-	        assertEquals(res4, "The Address is Valid" );
+	        assertEquals(res4, "Valid Address" );
 
 	    }
 	 
@@ -100,8 +89,7 @@ public class AddressTest {
 	    public void failcheckifvalid() throws Exception{
 
 	        String res5 = address.checkifValid(invalidaddress);
-	        System.out.println(res5);
-	        assertEquals(res5, "The Address is Valid");
+	        assertEquals(res5, "Invalid Address");
 
 	    }
 	
@@ -109,7 +97,7 @@ public class AddressTest {
 	    public void checkifMineAllowed() throws Exception{
 
 	        String res6 = address.checkifMineAllowed(miningaddress);
-	        assertEquals(res6, miningaddress);
+	        assertEquals(res6, "Address has mining permission");
 	
 	 }
 	 
@@ -117,15 +105,13 @@ public class AddressTest {
 	    public void failcheckifMineAllowed() throws Exception{
 
 	        String res7 = address.checkifMineAllowed(nonminingaddress);
-	        assertEquals(res7, nonminingaddress);
+	        assertEquals(res7, "Address does not have mining permission");
 
 	    }
 	 
 	 @Test
 	    public void checkBalance() throws Exception{
-
-	        int balance = address.checkBalance(nonminingaddress);
-	        
+	        double balance = address.checkBalance(invalidaddress);
 	        assertNotNull(balance);
 	 } 
 	 
@@ -139,7 +125,7 @@ public class AddressTest {
 	 @Test
 	    public void wrongimportAddress() throws Exception{
 	        String public_address = address.importAddress(wrongimportaddress);
-	        assertEquals(public_address, "Invalid Address");
+	        assertEquals(public_address, "Invalid Rk address or script");
 	    }
 
 	 

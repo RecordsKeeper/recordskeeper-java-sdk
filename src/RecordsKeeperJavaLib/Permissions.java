@@ -60,29 +60,29 @@ import java.io.FileInputStream;
 public class Permissions {
 
    
-      	 public static Properties prop;
+     public static Properties prop;
 	
 	 public static boolean getPropert() throws IOException {
 
-	        prop = new Properties();
+	 prop = new Properties();
 
-	        String path = "config.properties";
-	        File file = new File(path);
-	        if (file.exists()) {
-	            FileInputStream fs = new FileInputStream(path);
-	            prop.load(fs);
-	            fs.close();
-	            return true;
-	        } else {
-	            return false;
-	        }
-	    }
+	 String path = "config.properties";
+	 File file = new File(path);
+	 if (file.exists()) {
+	    FileInputStream fs = new FileInputStream(path);
+	    prop.load(fs);
+	    fs.close();
+	    return true;
+	        } 
+	 else {
+	     return false;
+	     }
+	   }
 
 	  /**
      * Default Constructor Class
      */
 
-  
     public Permissions() throws IOException {}
 	
     

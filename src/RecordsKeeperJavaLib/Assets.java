@@ -170,16 +170,17 @@ public class Assets {
 	    public static JSONObject retrieveAssets() throws IOException, JSONException {
 
 		     
-		     String asset_name;
+		    String asset_name;
 		     
-		     String issue_id;
-		     int issue_qty;
-		     String resp;
+		    String issue_id;
+		    int issue_qty;
+		    String resp;
 	    	
 			String rkuser;
 			String passwd;
 			String chain;
 			String url;
+			
 	        if (getPropert() == true) {
 	            url = prop.getProperty("url");
 	            rkuser = prop.getProperty("rkuser");
@@ -227,7 +228,7 @@ public class Assets {
 
 	        String out = "{\"Output\":["+output+"]}";
 	        JSONObject object1 = new JSONObject(out);
-	     //  System.out.println(object1);
+	        //System.out.println(object1);
 
 	        return object1;
 	    }
@@ -251,12 +252,13 @@ public class Assets {
 
 	        address = "\"" + address + "\"";
 	        asset_name = "\"" + asset_name + "\"";
-	        String resp;
 	        
-	       String rkuser;
+	        String resp;
+	        String rkuser;
 			String passwd;
 			String chain;
 			String url;
+			
 	        if (getPropert() == true) {
 	            url = prop.getProperty("url");
 	            rkuser = prop.getProperty("rkuser");
@@ -285,8 +287,9 @@ public class Assets {
 	        Response response = client.newCall(request).execute();
 	        resp = response.body().string();
 	        JSONObject jsonObject = new JSONObject(resp);
-	       // System.out.println(resp);
+	        //System.out.println(resp);
 	        String txid = jsonObject.getString("result");
+	        
 	        return txid;
 	    }
 	

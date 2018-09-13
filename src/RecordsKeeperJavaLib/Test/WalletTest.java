@@ -1,25 +1,29 @@
+
 package RecordsKeeperJavaLib.Test;
-/*
-package package2.Test;
+
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
+import RecordsKeeperJavaLib.Config;
+import RecordsKeeperJavaLib.Wallet;
+
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+
 import java.util.Properties;
+
+import org.json.JSONException;
+import org.junit.Test;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Test;
 
-import package2.Config;
-import package2.Wallet;
 
 public class WalletTest {
 
-            Properties prop;
+        Properties prop;
 	    String validaddress;
 	    String privatekey;
 	    String testdata;
@@ -44,55 +48,56 @@ public class WalletTest {
 
 
 	    public WalletTest() throws IOException {
-	    
-	    
-	    
+  
 	  if (getPropert() == true) {
           
-	    privatekey = Config.getProperty("privatekey");
-            validaddress = Config.getProperty("validaddress");
-	    testdata = Config.getProperty("testdata");
-	    signedtestdata = Config.getProperty("signedtestdata");
-	    miningaddress = Config.getProperty("miningaddress");
-	    
+		    
+		    privatekey = Config.getProperty("privatekey");
+		    validaddress = Config.getProperty("validaddress");
+		    testdata = Config.getProperty("testdata");
+		    signedtestdata = Config.getProperty("signedtestdata");
+		    miningaddress = Config.getProperty("miningaddress");
+   
         } 
+	  
 	  else {
 	  
-	    privatekey = System.getenv("privatekey");
-            validaddress = System.getenv("validaddress");
-	    testdata = System.getenv("testdata");
-	    signedtestdata = System.getenv("signedtestdata");
-	    miningaddress = System.getenv("miningaddress");
-	    
-          
+		  	privatekey = System.getenv("privatekey");
+		  	validaddress = System.getenv("validaddress");
+		  	testdata = System.getenv("testdata");
+		  	signedtestdata = System.getenv("signedtestdata");
+		  	miningaddress = System.getenv("miningaddress");
+   
         }
-		
-	
-	    
-	    }
+	  
+	  }
 
 	    @Test
 	    public void createWallet() throws Exception {
 
-	        JSONObject item = Wallet.createWallet();
+	    	JSONObject item = Wallet.createWallet();
 
 	        String address = item.getString("public_address");
-	        System.out.println(address);
 	        int address_size = address.length();
-	        assertEquals(address_size, 40);
+	        assertEquals(address_size, 34);
+	        
 	    }
 
 	    @Test
 	    public void getPrivatekey() throws Exception{
-	        String checkprivkey = Wallet.getPrivateKey(miningaddress);
+	    	
+	    	String checkprivkey = Wallet.getPrivateKey(miningaddress);
 	        assertEquals(checkprivkey, privatekey);
+	        
 	    }
 	   
 	    @Test
 	    public void retreieveWalletinfo() throws IOException, JSONException {
-	        JSONObject item = Wallet.retrieveWalletinfo();
+	    	
+	    	JSONObject item = Wallet.retrieveWalletinfo();
 	        int tx_count = item.getInt("tx_count");
-	        assertNotEquals(tx_count, 463757);
+	        assertNotNull(tx_count);
+	        
 	    }
 	
 	    /*   @Test
@@ -119,24 +124,17 @@ public class WalletTest {
 	    public void changeWalletPassword(){
 	        String a = wallet.changeWalletPassword();
 	    }
-	
-	    
+	*/
 	    @Test
 	    public void signmessage() throws IOException, JSONException {
-	        String signedMessage = Wallet.signMessage(privatekey, testdata);
-	        System.out.println(signedMessage);
-	        System.out.println(signedMessage);
+	    	String signedMessage = Wallet.signMessage(privatekey, testdata);
 	        assertEquals(signedMessage, signedtestdata);
 	    }
 
 	    @Test
 	    public void verifymessage() throws IOException, JSONException {
-	        String validity = Wallet.verifyMessage(miningaddress, signedtestdata, testdata);
-	        assertEquals(validity, "Yes, message is verified");
+	    	String validity = Wallet.verifyMessage(miningaddress, signedtestdata, testdata);
+	        assertEquals(validity, "Signed Message is correct");
 	    }
-	
-	
-	
-	
+
 }
-*/

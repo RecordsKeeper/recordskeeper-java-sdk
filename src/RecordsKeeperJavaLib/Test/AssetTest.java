@@ -1,6 +1,4 @@
 package RecordsKeeperJavaLib.Test;
-/*
-package package2.Test;
 
 import static org.junit.Assert.*;
 
@@ -13,13 +11,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import package2.Assets;
-import package2.Config;
+import RecordsKeeperJavaLib.Assets;
+import RecordsKeeperJavaLib.Config;
 
 
 public class AssetTest {
 
-        String multisigaddress;
+    String multisigaddress;
 	String validaddress;
 	String miningaddress;
 	String nonminingaddress;
@@ -31,7 +29,7 @@ public class AssetTest {
 	
 	 public boolean getPropert() throws IOException {
 
-	         prop = new Properties();
+	        prop = new Properties();
 
 	        String path = "config.properties";
 	        File file = new File(path);
@@ -44,11 +42,9 @@ public class AssetTest {
 	            return false;
 	        }
 	    }
-         
-
+     
 	 Assets Assets = new Assets();
 	 
-  
 	 public AssetTest() throws IOException {
 	 
 	 if (getPropert() == true) {
@@ -58,8 +54,6 @@ public class AssetTest {
         }
 	 
 	 }
-	 
-  
 
     @Test
     public void createAsset() throws Exception {
@@ -71,8 +65,6 @@ public class AssetTest {
     }
 
     @Test
-  
-    
     public void retrieveasset() throws IOException, JSONException {
 
         JSONObject item = Assets.retrieveAssets();
@@ -86,7 +78,7 @@ public class AssetTest {
         {
         	JSONObject asset = value.getJSONObject(i);
         	asset_name=asset.getString("name");
-        //	System.out.println(asset_name);
+        	//System.out.println(asset_name);
         	if (asset_name.equals("BAAT"))
         	{   
         		
@@ -95,8 +87,7 @@ public class AssetTest {
         	}
          }
           assertEquals(asset_name, "BAAT");
-          
-          
+                
           for(int i=0;i<value.length();i++)
           {
           	JSONObject res = value.getJSONObject(i);
@@ -109,10 +100,8 @@ public class AssetTest {
           		break;
           	}
            }
-            assertEquals(issue_id, "7d6e52a1d0cfa9662709a7b2724c2ffc03701defc618481b59da4cd18fa20ddd");
-            
-            
-            
+          
+            assertEquals(issue_id, "7d6e52a1d0cfa9662709a7b2724c2ffc03701defc618481b59da4cd18fa20ddd");         
             
             for(int i=0;i<value.length();i++)
             {
@@ -129,9 +118,7 @@ public class AssetTest {
               assertEquals(issue_qty, "100");
         
     }
-  
-    
-       
+     
     @Test
     public void sendAsset() throws Exception {
 
@@ -141,13 +128,5 @@ public class AssetTest {
 
     }
 
-
-
-
-
-
-
-
-
 }
-*/
+

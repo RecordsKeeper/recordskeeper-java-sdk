@@ -154,7 +154,8 @@ public class address {
 
      public static String getMultisigAddress(int nrequired, String key) throws JSONException, IOException
      {        	 
-    	    String rkuser;
+    	  
+    	 	String rkuser;
 			String passwd;
 			String chain;
 			String url;
@@ -204,7 +205,6 @@ public class address {
          JSONObject object = jsonObject.getJSONObject("result");
          if (object.isNull("address")) {
              String error = jsonObject.getString("error");
-             System.out.println(error);
              res = jsonObject.getString("message");
          }else {
              res = object.getString("address");
@@ -281,7 +281,6 @@ public class address {
 
          if (address == null) {
              String error = jsonObject.getString("error");
-             System.out.println(error);
              res = jsonObject.getString("message");
          }else {
              res = jsonObject.getString("result");
@@ -302,22 +301,25 @@ public class address {
       */
          
      public static String retrieveAddress() throws IOException, JSONException {
-          String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+            
+    	String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = prop.getProperty("url");
 	            rkuser = prop.getProperty("rkuser");
 	            passwd = prop.getProperty("passwd");
 	            chain = prop.getProperty("chain");
-	        } else {
+	        } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
-	        }	   
-  	     String address;
+	        }	
+	        
+  	    String address;
     	 
          OkHttpClient client = new OkHttpClient();
          MediaType mediaType = MediaType.parse("application/json");
@@ -336,10 +338,9 @@ public class address {
          String a = response.body().string();
          JSONObject jsonObject = new JSONObject(a);
          JSONArray array = jsonObject.getJSONArray("result");
-         System.out.println(array.length());
          for(int i=0; i<array.length();i++) {
              String ace = array.getString(i);
-             System.out.println(ace);
+             
          }
          address = String.valueOf(array);
 
@@ -418,11 +419,7 @@ public class address {
       * You have to pass address as argument to the checkifMineAllowed function call:
       * @param address to check the permission status
       * @return It will return if mining permission is allowed or not.
-      */
-     
-     
-     
-     
+      */  
      
      public static String checkifMineAllowed(String address) throws IOException, JSONException{ 
     	 
@@ -461,21 +458,29 @@ public class address {
          Response response = client.newCall(request).execute();
          String a = response.body().string();
          JSONObject jsonObject = new JSONObject(a);
-         JSONObject jsonObject1 = jsonObject.getJSONObject("result");
-         String add = jsonObject1.getString("address");
-         Boolean permission = jsonObject1.getBoolean("ismine");
+         JSONObject result = jsonObject.getJSONObject("result");
+         Boolean check = result.getBoolean("isvalid");
+         String validity;
+         
+         if (check) {
+        	 String add = result.getString("address");
+        	 Boolean permission = result.getBoolean("ismine");
 
-         if (permission) {
-             System.out.println(permission + ": The Address has mining permission");
+            
+			if (permission) {
+                 validity = "Address has mining permission";
+             }
+             else
+                 validity = "Address does not have mining permission";
          }
-         else
-             System.out.println("The Address does not have mining permission");
-
-         return add;
+         
+         else {
+        	 validity = "Invalid Address";
+         }
+        
+         return validity;
 
      }
-     
-     
      
      /**
       * Check address balance on a particular node. <br>
@@ -488,14 +493,8 @@ public class address {
       * @return It will return the balance of the address on RecordsKeeper Blockchain.
       */
      
-     
-     
-     
-     
-     
-     public static int checkBalance(String address) throws IOException, JSONException{
-    	 
-    	 
+     public static double checkBalance(String address) throws IOException, JSONException{
+    	
     	    String rkuser;
 			String passwd;
 			String chain;
@@ -530,17 +529,32 @@ public class address {
          Response response = client.newCall(request).execute();
          String a = response.body().string();
          JSONObject jsonObject = new JSONObject(a);
-         JSONArray array = jsonObject.getJSONArray("result");
-         JSONObject object = array.getJSONObject(0);
-         int balance = object.getInt("qty");
          
-         //System.out.println(balance);
+         double balance;
          
+         if(jsonObject.isNull("error")) {
+        	 
+        	 JSONArray array = jsonObject.getJSONArray("result");
+             JSONObject object = array.getJSONObject(0);
+             balance = object.getDouble("qty");
+        	 
+         }
+         
+         else {
+        	 
+        	// String message = "Invalid Address";
+        	// balance = Double.parseDouble(message);
+        	 
+        	 JSONObject error = jsonObject.getJSONObject("error");
+             String message = error.getString("message");
+             
+             balance = Double.parseDouble(message);
+             
+         }   
+        
          return balance;
      }
-     
-     
-     
+ 
      /**
       * Import a non-wallet address on RecordsKeeeper Blockchain. <br>
       * importAddress() function is used to check the balance of the address.
@@ -551,10 +565,7 @@ public class address {
       * @param public_address non-wallet address to import on a particular node
       * @return It will return the response of the importAddress() function call.
       */
-     
-     
-     
-     
+
      public static String importAddress(String public_address) throws IOException, JSONException{
     	 
     	    String rkuser;
@@ -590,7 +601,7 @@ public class address {
 
          Response response = client.newCall(request).execute();
          String a = response.body().string();
-         System.out.println(a);
+         
          String add1="";
          JSONObject jsonObject = new JSONObject(a);
          if (jsonObject.isNull("result")){
@@ -601,11 +612,11 @@ public class address {
              else {
                  JSONObject object= jsonObject.getJSONObject("error");
                  String objectString = object.getString("message");
-                 System.out.println(objectString);
-                 add1="Invalid Address";
+                 
+                 add1=objectString;
              }
          }
-
+         
          return add1;
 
          }

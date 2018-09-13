@@ -57,12 +57,8 @@ import java.util.Properties;
  * Now we have node authentication credentials.
  */
 
-
-
-
 public class block {
-	
-	
+
 	public static Properties prop;
 	
 	 public static boolean getPropert() throws IOException {
@@ -118,21 +114,24 @@ public class block {
 
         block_height = "\"" +block_height+ "\"";
         MediaType mediaType = MediaType.parse("application/json");
-    	                String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	    
+        String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = prop.getProperty("url");
 	            rkuser = prop.getProperty("rkuser");
 	            passwd = prop.getProperty("passwd");
 	            chain = prop.getProperty("chain");
-	        } else {
+	        } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
+	    
     	String credential = Credentials.basic(rkuser, passwd);
         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"getblock\",\"params\":["+block_height+"],\"id\":1,\"chain_name\":\""+chain+"\"}\n");
         Request request = new Request.Builder()
@@ -142,43 +141,56 @@ public class block {
                 .addHeader("Cache-Control", "no-cache")
                 .header("Authorization", credential)
                 .build();
+        
         OkHttpClient client = new OkHttpClient();
         Response response = client.newCall(request).execute();
         String resp;
         resp = response.body().string();
         
         JSONObject jsonObject = new JSONObject(resp);
-        JSONObject object = jsonObject.getJSONObject("result");
-        JSONArray array = object.getJSONArray("tx");
-       
-        int tx_count = array.length();
-       
-        int size = object.getInt("size");
-        int nonce = object.getInt("nonce");
-        int blocktime = object.getInt("time");
-        int difficulty = object.getInt("difficulty");
-        String miner = object.getString("miner");
-        String blockHash = object.getString("hash");
-        String prevblock = object.getString("previousblockhash");
-        String nextblock = object.getString("nextblockhash");
-        String merkleroot = object.getString("merkleroot");
-        String add = "";
-        for (int i = 0; i<tx_count; i++){
-             add = array.getString(i);
-        }
         
         JSONObject item = new JSONObject();
-        item.put("tx_count", tx_count);
-        item.put("size", size);
-        item.put("nonce", nonce);
-        item.put("blockhash", blockHash);
-        item.put("prevblock", prevblock);
-        item.put("nextblock", nextblock);
-        item.put("merkleroot", merkleroot);
-        item.put("blocktime", blocktime);
-        item.put("difficulty", difficulty);
-        item.put("miner", miner);
-        item.put("tx", add);
+        
+        if(jsonObject.isNull("error")) {
+        	
+        	JSONObject object = jsonObject.getJSONObject("result");
+        	JSONArray array = object.getJSONArray("tx");
+            
+            int tx_count = array.length();
+           
+            int size = object.getInt("size");
+            int nonce = object.getInt("nonce");
+            int blocktime = object.getInt("time");
+            int difficulty = object.getInt("difficulty");
+            String miner = object.getString("miner");
+            String blockHash = object.getString("hash");
+            String prevblock = object.getString("previousblockhash");
+            String nextblock = object.getString("nextblockhash");
+            String merkleroot = object.getString("merkleroot");
+            String add = "";
+            for (int i = 0; i<tx_count; i++){
+                 add = array.getString(i);
+            }
+            
+            
+            item.put("tx_count", tx_count);
+            item.put("size", size);
+            item.put("nonce", nonce);
+            item.put("blockhash", blockHash);
+            item.put("prevblock", prevblock);
+            item.put("nextblock", nextblock);
+            item.put("merkleroot", merkleroot);
+            item.put("blocktime", blocktime);
+            item.put("difficulty", difficulty);
+            item.put("miner", miner);
+            item.put("tx", add);
+        }
+        
+        else {
+        	
+        	item.put("Error:", "Block height out of range");
+
+        }
        
         
         return item ;
@@ -232,44 +244,45 @@ public class block {
         OkHttpClient client = new OkHttpClient();
         Response response = client.newCall(request).execute();
         String resp;
-        
-        
-        
-      
-        
+
         resp = response.body().string();
         JSONObject jsonObject = new JSONObject(resp);
-        JSONArray array = jsonObject.getJSONArray("result");
-        int block_count = array.length();
-        int tx_count = array.length();
         
         JSONObject item = new JSONObject();
         JSONArray arr= new JSONArray();
         
-        for (int i = 0; i < block_count; i++) {
-
-            JSONObject object = array.getJSONObject(i);
-            int blocktime = object.getInt("time");
-            String blockHash = object.getString("hash");
-            blockHash = object.getString("hash");
-            String miner = object.getString("miner");
-            blocktime = object.getInt("time");
-            tx_count = object.getInt("txcount");
-             
-              
-            item.put("tx_count", tx_count);
-            item.put("miner", miner);
-            item.put("blockhash", blockHash);
-            item.put("blocktime", blocktime);
-            arr.put(item);
-         
-        }
-        
-      
-		return arr;
+        if(jsonObject.isNull("error")) {
+        	
+        	JSONArray array = jsonObject.getJSONArray("result");
+            int block_count = array.length();
+            int tx_count = array.length();
            
-			
-             
+            for (int i = 0; i < block_count; i++) {
+
+                JSONObject object = array.getJSONObject(i);
+                int blocktime = object.getInt("time");
+                String blockHash = object.getString("hash");
+                blockHash = object.getString("hash");
+                String miner = object.getString("miner");
+                blocktime = object.getInt("time");
+                tx_count = object.getInt("txcount");
+                 
+                  
+                item.put("tx_count", tx_count);
+                item.put("miner", miner);
+                item.put("blockhash", blockHash);
+                item.put("blocktime", blocktime);
+                arr.put(item);
+        	
+            	}
+        }
+        else {
+        		item.put("Error:", "Blocks out of range");
+            	arr.put(item);
+            }
+
+		return arr;
+
     }
 
 

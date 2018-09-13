@@ -19,6 +19,8 @@ public class BlockTest {
 	
 	  public Properties prop;
 	  public String mainaddress;
+	  public String testblock;
+	  public String blockrange;
 	
 	  public boolean getPropert() throws IOException {
 
@@ -40,45 +42,45 @@ public class BlockTest {
 	    
           if (getPropert() == true) {
             mainaddress = prop.getProperty("mainaddress");
-        } else {
+            testblock = prop.getProperty("testblock");
+            blockrange = prop.getProperty("blockrange");
+            
+          	} 
+          else {
             mainaddress = System.getenv("mainaddress");
-        }
+            testblock = System.getenv("testblock");
+            blockrange = System.getenv("blockrange");
+          }
 	    
 	    }
 
 	    @Test
 	    public void blockinfo() throws Exception {
-	        JSONObject res1 = block.blockinfo("100");
+	        JSONObject res1 = block.blockinfo(testblock);
 	        
 	        String miner = res1.getString("miner");
 	        assertEquals(miner, mainaddress);
+	        System.out.println(miner);
 
-	        int size = res1.getInt("size");	        
-	        assertEquals(size, 300);
-
-	        int nonce = res1.getInt("nonce");
-	        assertEquals(nonce, 260863);	      
+	        int size = res1.getInt("size");	 
+	        System.out.println(size);
+	        assertNotNull(size);     
 	    }
 
 	    @Test
 	    public void retreiveBlocks() throws Exception{
-	        JSONArray res1 = block.retrieveBlocks("10-20");
+	        JSONArray res1 = block.retrieveBlocks(blockrange);
 	        
-	        JSONObject a=res1.getJSONObject(0);
-	        String miner =a.getString("miner"); 
-	        assertEquals(miner, mainaddress);
+	        JSONObject a = res1.getJSONObject(0);
 
 	        int blocktime=a.getInt("blocktime");
-	       // System.out.println(c);
-	        assertEquals(blocktime, 1522831655);
+	        System.out.println(blocktime);
+	        assertNotNull(blocktime);
 
-	        String blockhash = a.getString("blockhash");
-	      //  System.out.println(blockhash);
-	        assertEquals(blockhash, "000003533bb68197a881ed2018c66e46a4080a76e070b868cf5d56c276c19019");
 
 	        int txcount = a.getInt("tx_count");
-	       // System.out.println(txcount);
-	        assertEquals(txcount, 1);
+	        System.out.println(txcount);
+	        assertNotNull(txcount);
 	    }
 	
 }

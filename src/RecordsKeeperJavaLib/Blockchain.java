@@ -20,8 +20,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
-  
-
 
 /**
  * <h1>Blockchain Class Usage</h1>
@@ -60,13 +58,8 @@ import java.util.Properties;
  * Now we have node authentication credentials.
  */
 
+public class Blockchain {
 
-
-
-
-public class blockchain {
-	
-	
 	 public static Properties prop;
 	
 	 public static boolean getPropert() throws IOException {
@@ -84,15 +77,12 @@ public class blockchain {
 	            return false;
 	        }
 	    }
-	
-	
 
 	  /**
      * Default Constructor Class
      */
 
-	
-    public blockchain() throws IOException {
+    public Blockchain() throws IOException {
     }
     
     /**
@@ -114,28 +104,27 @@ public class blockchain {
 
     public static JSONObject getChainInfo() throws IOException, JSONException {
 
-    	    String resp;
-    	        String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	String resp;
+    	String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = prop.getProperty("url");
 	            rkuser = prop.getProperty("rkuser");
 	            passwd = prop.getProperty("passwd");
 	            chain = prop.getProperty("chain");
-	        } else {
+	           } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
-	        }
-    		String credential = Credentials.basic(rkuser, passwd);
-    		OkHttpClient client = new OkHttpClient();
-    		MediaType mediaType = MediaType.parse("application/json");
-    		
-    	
-    	
+	           }
+    	String credential = Credentials.basic(rkuser, passwd);
+    	OkHttpClient client = new OkHttpClient();
+    	MediaType mediaType = MediaType.parse("application/json");
+
         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"getblockchainparams\",\"params\":[],\"id\":1,\"chain_name\":\""+chain+"\"}\n");
         Request request = new Request.Builder()
                 .url(url)
@@ -150,8 +139,8 @@ public class blockchain {
         JSONObject jsonObject = new JSONObject(resp);
         JSONObject object = jsonObject.getJSONObject("result");
         String chain_protocol = object.getString("chain-protocol");
-         String chain_name = object.getString("chain-name");
-         String chain_description = object.getString("chain-description");
+        String chain_name = object.getString("chain-name");
+        String chain_description = object.getString("chain-description");
         String root_stream = object.getString("root-stream-name");
         int max_blocksize = object.getInt("maximum-block-size");
         int default_networkport = object.getInt("default-network-port");
@@ -172,9 +161,7 @@ public class blockchain {
        return item;
     
     }
-    
-    
-    
+
     /**
      * Retrieve node's information on RecordsKeeper Blockchain. <br>
      * getNodeInfo() function is used to retrieve node's information on RecordsKeeper Blockchain.
@@ -189,22 +176,24 @@ public class blockchain {
 
     public static JSONObject getNodeInfo() throws IOException, JSONException {
         
-	    String resp;
+	   String resp;
 	   String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+	   String passwd;
+	   String chain;
+	   String url;
+	   if (getPropert() == true) {
 	            url = prop.getProperty("url");
 	            rkuser = prop.getProperty("rkuser");
 	            passwd = prop.getProperty("passwd");
 	            chain = prop.getProperty("chain");
-	        } else {
+	          } 
+	   else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
+	   
 		String credential = Credentials.basic(rkuser, passwd);
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/json");
@@ -233,14 +222,10 @@ public class blockchain {
         item.put("synced_blocks",synced_blocks );
         item.put("node_address",node_address );
         item.put("difficulty",difficulty );
-        
 
         return item; //node_balance,synced_blocks, node_address, difficulty;
     }
 
-    
-    
-    
     /**
      * Retrieve permissions given to the node on RecordsKeeper Blockchain.<br>
      * permissions() function is used to retrieve node's permissions.
@@ -253,23 +238,25 @@ public class blockchain {
     public static String permissions() throws IOException, JSONException {
     	
     	
-	    String resp;
-	    String permission;
+	   String resp;
+	   String permission;
 	   String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+	   String passwd;
+	   String chain;
+	   String url;
+	   if (getPropert() == true) {
 	            url = prop.getProperty("url");
 	            rkuser = prop.getProperty("rkuser");
 	            passwd = prop.getProperty("passwd");
 	            chain = prop.getProperty("chain");
-	        } else {
+	           }
+	   else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
+	   
 		String credential = Credentials.basic(rkuser, passwd);
 		OkHttpClient client = new OkHttpClient();
 		MediaType mediaType = MediaType.parse("application/json");
@@ -296,12 +283,10 @@ public class blockchain {
                 output += permission +",";
             else output += permission;
         }
+        
         return output;
     }
 
-    
-    
-    
     /**
      * Retrieve pending transaction's information on RecordsKeeper Blockchain. <br>
      * getpendingTransactions() function is used to retrieve pending transaction's information like no of pending transactions and the pending transactions.
@@ -312,25 +297,27 @@ public class blockchain {
      * @return It will return the information of pending transactions on Recordskeeper Blockchain.
      */
     
-    public static JSONObject  getpendingTransactions() throws IOException, JSONException {
+    public static JSONObject getpendingTransactions() throws IOException, JSONException {
 
     	
     	String resp;
- 	   String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+ 	    String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = prop.getProperty("url");
 	            rkuser = prop.getProperty("rkuser");
 	            passwd = prop.getProperty("passwd");
 	            chain = prop.getProperty("chain");
-	        } else {
+	           } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
-	        }
+	         }
+	    
  		String credential = Credentials.basic(rkuser, passwd);
  		OkHttpClient client = new OkHttpClient();
  		MediaType mediaType = MediaType.parse("application/json");
@@ -349,28 +336,40 @@ public class blockchain {
         JSONObject jsonObject = new JSONObject(resp);
         JSONObject object = jsonObject.getJSONObject("result");
         int tx_count = object.getInt("size");
-
-        RequestBody body1 = RequestBody.create(mediaType, "{\"method\":\"getrawmempool\",\"params\":[],\"id\":1,\"chain_name\":\""+chain+"\"}\n");
-        Request request1 = new Request.Builder()
-                .url(url)
-                .method("POST", body1)
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Cache-Control", "no-cache")
-                .header("Authorization", credential)
-                .build();
-
-        Response response1 = client.newCall(request1).execute();
-        String resp1 = response1.body().string();
-        JSONObject jsonObject1 = new JSONObject(resp1);
-        JSONArray array = jsonObject1.getJSONArray("result");
         String tx = "";
         JSONObject item = new JSONObject();
-        
-        for (int i = 0; i<jsonObject1.length(); i++) {
-            tx = String.valueOf(jsonObject1.get("result"));
+
+        if (tx_count!= 0) {
+        	
+        	RequestBody body1 = RequestBody.create(mediaType, "{\"method\":\"getrawmempool\",\"params\":[],\"id\":1,\"chain_name\":\""+chain+"\"}\n");
+        	Request request1 = new Request.Builder()
+                    .url(url)
+                    .method("POST", body1)
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("Cache-Control", "no-cache")
+                    .header("Authorization", credential)
+                    .build();
+
+            Response response1 = client.newCall(request1).execute();
+            String resp1 = response1.body().string();
+            JSONObject jsonObject1 = new JSONObject(resp1);
+            JSONArray array = jsonObject1.getJSONArray("result");
+  
+            for (int i = 0; i<jsonObject1.length(); i++) {
+                tx = String.valueOf(jsonObject1.get("result"));
+            }
+            
         }
+        
+        else {
+        	
+        	tx = "Currently, No pending Transactions.";
+        }
+        
+        
         item.put("tx_count",tx_count);
         item.put("tx", tx);
+        
         return item; 
     }
 
@@ -386,45 +385,49 @@ public class blockchain {
      */
     
     
-    public static int checkNodeBalance() throws IOException, JSONException {
-
-    	String resp;
- 	    String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
-	            url = prop.getProperty("url");
-	            rkuser = prop.getProperty("rkuser");
-	            passwd = prop.getProperty("passwd");
-	            chain = prop.getProperty("chain");
-	        } else {
-	            url = System.getenv("url");
-	            rkuser = System.getenv("rkuser");
-	            passwd = System.getenv("passwd");
-	            chain = System.getenv("chain");
-	        }
+    public static JSONObject checkNodeBalance() throws IOException, JSONException {
+    
+       String resp;
+ 	   String rkuser;
+ 	   String passwd;
+ 	   String chain;
+ 	   String url;
+ 	   if (getPropert() == true) {
+ 	            url = prop.getProperty("url");
+ 	            rkuser = prop.getProperty("rkuser");
+ 	            passwd = prop.getProperty("passwd");
+ 	            chain = prop.getProperty("chain");
+ 	          } 
+ 	   else {
+ 	            url = System.getenv("url");
+ 	            rkuser = System.getenv("rkuser");
+ 	            passwd = System.getenv("passwd");
+ 	            chain = System.getenv("chain");
+ 	        }
+ 	   
  		String credential = Credentials.basic(rkuser, passwd);
  		OkHttpClient client = new OkHttpClient();
  		MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType, "{\"method\":\"getmultibalances\",\"params\":[],\"id\":1,\"chain_name\":\""+chain+"\"}\n");
-        Request request = new Request.Builder()
-                .url(url)
-                .method("POST", body)
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Cache-Control", "no-cache")
-                .header("Authorization", credential)
-                .build();
+     	
+         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"getinfo\",\"params\":[],\"id\":1,\"chain_name\":\""+chain+"\"}\n");
+         Request request = new Request.Builder()
+                 .url(url)
+                 .method("POST", body)
+                 .addHeader("Content-Type", "application/json")
+                 .addHeader("Cache-Control", "no-cache")
+                 .header("Authorization", credential)
+                 .build();
 
-        Response response = client.newCall(request).execute();
-        resp = response.body().string();
-        JSONObject jsonObject = new JSONObject(resp);
-        JSONObject object = jsonObject.getJSONObject("result");
-        JSONArray object1 = object.getJSONArray("total");
-        JSONObject object2 = object1.getJSONObject(0);
-        int qty = object2.getInt("qty");
+         Response response = client.newCall(request).execute();
+         resp = response.body().string();
+         JSONObject jsonObject = new JSONObject(resp);
+         JSONObject object = jsonObject.getJSONObject("result");
+         int node_balance = object.getInt("balance");
 
-        return qty;
+         JSONObject item = new JSONObject();
+         item.put("node_balance", node_balance );
+ 
+         return item; //node_balance
     }
 
 
