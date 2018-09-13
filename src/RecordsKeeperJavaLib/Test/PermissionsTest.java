@@ -1,7 +1,5 @@
 package RecordsKeeperJavaLib.Test;
 /*
-package package2.Test;
-
 import static org.junit.Assert.*;
 
 import java.io.IOException;
@@ -13,8 +11,8 @@ import org.json.JSONException;
 
 import org.junit.Test;
 
-import package2.Config;
-import package2.Permissions;
+import RecordsKeeperJavaLib.Config;
+import RecordsKeeperJavaLib.Permissions;
 
 public class PermissionsTest {
 
@@ -23,18 +21,19 @@ public class PermissionsTest {
 	
 	Properties prop;
 	
-	 public boolean getPropert() throws IOException {
+	public boolean getPropert() throws IOException {
 
-	         prop = new Properties();
+	       prop = new Properties();
 
-	        String path = "config.properties";
-	        File file = new File(path);
-	        if (file.exists()) {
+	       String path = "config.properties";
+	       File file = new File(path);
+	       if (file.exists()) {
 	            FileInputStream fs = new FileInputStream(path);
 	            prop.load(fs);
 	            fs.close();
 	            return true;
-	        } else {
+	        } 
+	        else {
 	            return false;
 	        }
 	    }
@@ -44,47 +43,35 @@ public class PermissionsTest {
 	
 	if (getPropert() == true) {
            
-            validaddress = Config.getProperty("validaddress");
+           validaddress = Config.getProperty("validaddress");
             
-        } else {
-           
+         } 
+        
+    else {
+         
             validaddress = System.getenv("validaddress");
-           
+     
         }
-	
-	
 	}
 	
 	@Test
-	public void grantPermission() throws Exception{
 		
-		String result=Permissions.grantPermission(validaddress, "create,connect");
-        int len = result.length();
-        assertEquals(len, 64);
+		public void grantPermission() throws Exception{
+		
+			String result=Permissions.grantPermission(validaddress, "create,connect");
+        	int len = result.length();
+        	assertEquals(len, 64);
 	    }
 	
-	@Test
-	    public void failgrantpermissions() throws IOException, JSONException {
-	        String result = Permissions.grantPermission(validaddress, "create,connect");
-	        assertEquals(result, "e3bba87d1f0a980b65f12388d31c734ea38b08d11d00aaab1004e470ca419556");
-	    }
 	
 	 @Test
+	    
 	    public void revokepermissions() throws IOException, JSONException {
 
 	        String result = Permissions.revokePermission(validaddress, "send");
 	        int len = result.length();
 	        assertEquals(len, 64);
 	    }
-
-	    @Test
-	    public void failrevokepermissions() throws IOException, JSONException {
-
-	        String result = Permissions.revokePermission(validaddress, "create,connect");
-	        assertEquals(result, "e3bba87d1f0a980b65f12388d31c734ea38b08d11d00aaab1004e470ca419556");
-	    }
-	
-	
 	
 }
 */

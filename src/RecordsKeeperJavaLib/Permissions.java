@@ -58,8 +58,7 @@ import java.io.FileInputStream;
  */
 
 public class Permissions {
-
-   
+  
      public static Properties prop;
 	
 	 public static boolean getPropert() throws IOException {
@@ -101,33 +100,28 @@ public class Permissions {
     
     public static String grantPermission(String address, String permissions) throws IOException, JSONException {
 
-    	
-    	  
-    	  String resp;
-    	
-    	 String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+	    
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
-        // public_address = "\""+public_address+"\"";
-         //boolean False = false;
-         OkHttpClient client = new OkHttpClient();
 
-         MediaType mediaType = MediaType.parse("application/json");
-
-         String credential = Credentials.basic(rkuser, passwd);
-    	
+        OkHttpClient client = new OkHttpClient();
+        MediaType mediaType = MediaType.parse("application/json");
+        String credential = Credentials.basic(rkuser, passwd);
+        
         address = "\"" + address + "\"";
         permissions = "\"" + permissions + "\"";
 
@@ -139,17 +133,22 @@ public class Permissions {
                 .addHeader("Cache-Control", "no-cache")
                 .header("Authorization", credential)
                 .build();
-
+        
+        String resp;
         Response response = client.newCall(request).execute();
         resp = response.body().string();
         JSONObject jsonObject = new JSONObject(resp);
+        
         String result;
+        
         if (jsonObject.isNull("result")) {
             JSONObject object = jsonObject.getJSONObject("error");
             result = object.getString("message");
-        } else
+        } 
+        else {
             result = jsonObject.getString("result");
-
+        }
+        
         return result;
     }
     
@@ -164,34 +163,30 @@ public class Permissions {
      * @param permissions list of comma-seperated permissions passed as a string
      * @return It will return the transaction id of the permission transaction.
      */
-    
-    
-    
+     
     public static String revokePermission(String address, String permissions) throws IOException, JSONException {
 
-    	 String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	String rkuser;
+    	String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	          } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
-  	     String resp;
-  	     
-  	   OkHttpClient client = new OkHttpClient();
-
-       MediaType mediaType = MediaType.parse("application/json");
-
-       String credential = Credentials.basic(rkuser, passwd);
-    	
+	    
+  	    String resp;
+  	    OkHttpClient client = new OkHttpClient();
+        MediaType mediaType = MediaType.parse("application/json");
+        String credential = Credentials.basic(rkuser, passwd);
     	
         address = "\"" +address+ "\"";
         permissions = "\"" +permissions+ "\"";
@@ -209,16 +204,16 @@ public class Permissions {
         resp = response.body().string();
         JSONObject jsonObject = new JSONObject(resp);
         String result;
+        
         if (jsonObject.isNull("result")) {
             JSONObject object = jsonObject.getJSONObject("error");
             result = object.getString("message");
-        } else
+        } else {
             result = jsonObject.getString("result");
-
+          }
+        
         return result;
     }
-
-      
 
 }
 
