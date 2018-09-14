@@ -69,24 +69,10 @@ import java.util.Properties;
 
 
 public class transactions {
-
-/*   String sender_address;
-     String reciever_address;
-     String data;
-     double amount;
-     String datahex;
-     String txHex;
-     String private_key;
-     String signed_txHex;
-     String txid;
-     String address;
-     String resp;
-*/
-	
 	
 	public static Properties prop;
 	
-	 public static boolean getPropert() throws IOException {
+	public static boolean getPropert() throws IOException {
 
 	        prop = new Properties();
 
@@ -101,9 +87,6 @@ public class transactions {
 	            return false;
 	        }
 	    }
-	
-	
-	
 	
 	/**
      * Default Constructor Class
@@ -126,27 +109,29 @@ public class transactions {
      */   
     
     public static String sendTransaction(String sender_address, String reciever_address, String data, double amount) throws IOException, JSONException {
-
-    	
+	
     	String datahex;
     	String resp;
+    	String txid;
         
     	String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
-  		String credential = Credentials.basic(rkuser, passwd);
+  		
+	    String credential = Credentials.basic(rkuser, passwd);
   		OkHttpClient client = new OkHttpClient();
   		MediaType mediaType = MediaType.parse("application/json"); 
   		
@@ -158,8 +143,6 @@ public class transactions {
         datahex = "\"" + hex + "\"";
         sender_address = "\"" + sender_address + "\"";
         reciever_address = "\"" + reciever_address + "\"";
-        
-       
 
         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"createrawsendfrom\",\"params\":[" + sender_address + ", {" + reciever_address + " :" + amount + "}, [" + datahex + "],\"send\"],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
         Request request = new Request.Builder()
@@ -175,13 +158,21 @@ public class transactions {
         resp = response.body().string();
         
         JSONObject jsonObject = new JSONObject(resp);
-        String txid = jsonObject.getString("result");
+        JSONObject error = new JSONObject();
+        
+        if(jsonObject.isNull("result")) {
+            error = jsonObject.getJSONObject("error");
+            txid = error.getString("message");
+        	
+        }
+        
+        else {
+        	txid = jsonObject.getString("result");
+        }
 
         return txid ;
     }
-
-    
-    
+  
     /**
      * Create raw transaction. <br>
      * createRawTransaction() function is used to create raw transaction by passing reciever's address, sender's address and amount.
@@ -195,14 +186,14 @@ public class transactions {
      * @param data hex value of data
      * @return It will return transaction hex of the raw transaction.
      */
-    
-    
+ 
     public static String createRawTransaction(String sender_address, String reciever_address, double amount, String data) throws IOException, JSONException {
 
         sender_address = "\"" + sender_address + "\"";
         reciever_address = "\"" + reciever_address + "\"";
         String datahex;
         String resp;
+        String txhex;
         
         byte[] byt = data.getBytes("UTF-8");
     	BigInteger big = new BigInteger(byt);
@@ -210,23 +201,27 @@ public class transactions {
         
         datahex = "\"" + hex + "\"";
         
-    	 String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	String rkuser;
+    	String passwd;
+    	String chain;
+    	String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+	     
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
-  		String credential = Credentials.basic(rkuser, passwd);
-  		OkHttpClient client = new OkHttpClient();
+  		
+	    String credential = Credentials.basic(rkuser, passwd);
+  		
+	    OkHttpClient client = new OkHttpClient();
   		MediaType mediaType = MediaType.parse("application/json");
 
         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"createrawsendfrom\",\"params\":[" + sender_address + ", {" + reciever_address + " :" + amount + "}, [" + datahex + "],\"\"],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
@@ -241,14 +236,24 @@ public class transactions {
         Response response = client.newCall(request).execute();
         resp = response.body().string();
         JSONObject jsonObject = new JSONObject(resp);
-       
-        String txhex = jsonObject.getString("result");
-
+        JSONObject error = new JSONObject();
+        
+        if(jsonObject.isNull("result")) {
+            
+        	error = jsonObject.getJSONObject("error");
+        	txhex = error.getString("message");
+        	
+        }
+        
+        else {
+        	
+        	txhex = jsonObject.getString("result");
+        
+        }
+        
         return txhex;
     }
-    
-    
-    
+ 
     /**
      * Sign raw transaction. <br>
      * signRawTransaction() function is used to sign raw transaction by passing transaction hex of the raw transaction and the private key to sign the raw transaction.
@@ -261,34 +266,34 @@ public class transactions {
      * @return It will return signed transaction hex of the raw transaction.
      */
     
-
     public static String signRawTransaction(String txHex, String private_key) throws IOException, JSONException {
 
         txHex = "\"" + txHex + "\"";
-       
         private_key = "\"" + private_key + "\"";
        
-
         ArrayList<String> ar = new ArrayList<String>();
         ar.add(private_key);
         
         String resp;        
-         String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+        String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    
+		if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+		else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
-  		String credential = Credentials.basic(rkuser, passwd);
+  		
+		String credential = Credentials.basic(rkuser, passwd);
   		OkHttpClient client = new OkHttpClient();
   		MediaType mediaType = MediaType.parse("application/json");
 
@@ -301,17 +306,34 @@ public class transactions {
                 .header("Authorization", credential)
                 .build();
 
+        String signedHex;
         Response response = client.newCall(request).execute();
         resp = response.body().string();
         JSONObject jsonObject = new JSONObject(resp);
-      //  System.out.println(jsonObject);
-        JSONObject object = jsonObject.getJSONObject("result");
-        String signedHex = object.getString("hex");
-
+        JSONObject error = new JSONObject();
+        
+        if(jsonObject.isNull("result")) {
+            
+        	error = jsonObject.getJSONObject("error");
+        	signedHex = error.getString("message");
+        	
+        }
+        
+        else {
+        	JSONObject object = jsonObject.getJSONObject("result");
+        	Boolean complete = object.getBoolean("complete");
+        	if (complete) {
+        		signedHex = object.getString("hex");
+        	}
+        	else {
+        		signedHex = "Transaction has not been signed properly";
+        	}
+            
+        }
+        
         return signedHex;
     }
 
-    
     /**
      * Send raw transaction. <br>
      * sendRawTransaction() function is used to send raw transaction by passing signed transaction hex of the raw transaction.
@@ -322,8 +344,7 @@ public class transactions {
      * @param signed_txHex Signed transaction hex of the raw transaction
      * @return It will return transaction id of the raw transaction sent on to the Blockchain.
      */
-    
-    
+
     public static String sendRawTransaction(String signed_txHex) throws IOException, JSONException {
 
         signed_txHex = "\"" + signed_txHex + "\"";
@@ -331,22 +352,25 @@ public class transactions {
         String resp;
 
         
-                        String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+        String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+	    
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
-  		String credential = Credentials.basic(rkuser, passwd);
+  		
+	    String credential = Credentials.basic(rkuser, passwd);
   		OkHttpClient client = new OkHttpClient();
   		MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"sendrawtransaction\",\"params\":[" + signed_txHex + "],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
@@ -360,8 +384,9 @@ public class transactions {
 
         Response response = client.newCall(request).execute();
         resp = response.body().string();
-        System.out.print(resp);
+        
         JSONObject jsonObject = new JSONObject(resp);
+       
         if (jsonObject.isNull("result")) {
             JSONObject object = jsonObject.getJSONObject("error");
             txid = object.getString("message");
@@ -370,11 +395,10 @@ public class transactions {
             txid = jsonObject.getString("result");
             
         }
+        
         return txid;
     }
-
-    
-    
+ 
     /**
      * Send Transaction by signing with private key.<br>
      * sendSignedTransaction() function is used to send transaction by passing reciever's address, sender's address, private key of sender and amount. In this function private key is required to sign transaction.
@@ -408,22 +432,25 @@ public class transactions {
         ArrayList<String> ar = new ArrayList<String>();
         ar.add(private_key);
         
-                        String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+        String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+	    
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
-  		String credential = Credentials.basic(rkuser, passwd);
+  		
+	    String credential = Credentials.basic(rkuser, passwd);
   		OkHttpClient client = new OkHttpClient();
   		MediaType mediaType = MediaType.parse("application/json");
 
@@ -439,10 +466,10 @@ public class transactions {
         Response response = client.newCall(request).execute();
         resp = response.body().string();
         JSONObject jsonObject = new JSONObject(resp);
-        String txhexi;
-        txhexi = jsonObject.getString("result");
+        String txHex;
+        txHex = jsonObject.getString("result");
 
-        RequestBody body1 = RequestBody.create(mediaType, "{\"method\":\"signrawtransaction\",\"params\":[\"" + txhexi + "\",[]," + ar + "],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
+        RequestBody body1 = RequestBody.create(mediaType, "{\"method\":\"signrawtransaction\",\"params\":[\"" + txHex + "\",[]," + ar + "],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
         Request request1 = new Request.Builder()
                 .url(url)
                 .method("POST", body1)
@@ -455,10 +482,10 @@ public class transactions {
         String resp1 = response1.body().string();
         JSONObject jsonObject1 = new JSONObject(resp1);
         JSONObject object1 = jsonObject1.getJSONObject("result");
-        String signedHexi;
-              signedHexi  = object1.getString("hex");
+        String signedHex;
+        signedHex  = object1.getString("hex");
 
-        RequestBody body2 = RequestBody.create(mediaType, "{\"method\":\"sendrawtransaction\",\"params\":[\"" + signedHexi + "\"],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
+        RequestBody body2 = RequestBody.create(mediaType, "{\"method\":\"sendrawtransaction\",\"params\":[\"" + signedHex + "\"],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
         Request request2 = new Request.Builder()
                 .url(url)
                 .method("POST", body2)
@@ -473,16 +500,13 @@ public class transactions {
         if (jsonObject.isNull("result")) {
             JSONObject object = jsonObject2.getJSONObject("error");
             txid = object.getString("message");
-            System.out.println(txid);
+            
         } else {
             txid = jsonObject2.getString("result");
         }
         return txid;
     }
-    
-    
-    
-    
+
     /**
      * Retrieve a transaction from the Blockchain. <br>
      * retrieveTransaction() function is used to retrieve transaction's information by passing transaction id to the function.
@@ -501,22 +525,26 @@ public class transactions {
         txid = "\"" + txid + "\"";
       
         String resp;
-                        String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+        String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    
+		if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+		
+		else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
-  		String credential = Credentials.basic(rkuser, passwd);
+  		
+		String credential = Credentials.basic(rkuser, passwd);
   		OkHttpClient client = new OkHttpClient();
   		MediaType mediaType = MediaType.parse("application/json");
 
@@ -531,26 +559,37 @@ public class transactions {
 
         Response response = client.newCall(request).execute();
         resp = response.body().string();
-        JSONObject jsonObject = new JSONObject(resp);
-        JSONObject object = jsonObject.getJSONObject("result");
-       // System.out.println(resp);
-        JSONArray data = object.getJSONArray("data");
-        byte[] bytes = decodeHex(data.getString(0)).toByteArray();
-        String sent_data = new String(bytes);
-        JSONArray amount = object.getJSONArray("vout");
-        JSONObject value = amount.getJSONObject(0);
-       // System.out.println(value);
-        double sent_amount =  (double) value.getDouble("value");
-      //  System.out.println(sent_amount);
-        
         JSONObject item=new JSONObject();
-        item.put("sent_data", sent_data);
-        item.put("sent_amount", sent_amount);
-        return item  ; 
+        JSONObject jsonObject = new JSONObject(resp);
+        
+        
+        if (jsonObject.isNull("result")) {
+        	
+            JSONObject object = jsonObject.getJSONObject("error");
+            String result = object.getString("message");
+            item.put("Error", result);
+            
+        } else {
+        	
+        	JSONObject object = jsonObject.getJSONObject("result");
+            //System.out.println(resp);
+            JSONArray data = object.getJSONArray("data");
+            byte[] bytes = decodeHex(data.getString(0)).toByteArray();
+            String sent_data = new String(bytes);
+            JSONArray amount = object.getJSONArray("vout");
+            JSONObject value = amount.getJSONObject(0);
+            //System.out.println(value);
+            double sent_amount =  (double) value.getDouble("value");
+            //System.out.println(sent_amount);
+            
+            item.put("sent_data", sent_data);
+            item.put("sent_amount", sent_amount);
+            
+        }
+           
+        return item; 
         
     }
-    
-    
     
     /**
      * Calculate a particular transaction's fee on RecordsKeeper Blockchain. <br>
@@ -563,8 +602,6 @@ public class transactions {
      * @param txid Transaction id of the transaction you want to calculate fee for
      * @return It will return the fees consumed in the transaction.
      */
-    
-    
 
     public static double getFee(String address, String txid) throws IOException, JSONException {
 
@@ -574,25 +611,27 @@ public class transactions {
         
         String resp;
         
-                        String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+        String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+	    
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
-  		String credential = Credentials.basic(rkuser, passwd);
+  		
+	    String credential = Credentials.basic(rkuser, passwd);
   		OkHttpClient client = new OkHttpClient();
   		MediaType mediaType = MediaType.parse("application/json");
-  		
   		
         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"getaddresstransaction\",\"params\":[" + address + ","+txid+","+True+"],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
         Request request = new Request.Builder()
@@ -606,18 +645,31 @@ public class transactions {
         
         Response response = client.newCall(request).execute();
         resp = response.body().string();
-        System.out.print(resp);
+        
         JSONObject jsonObject = new JSONObject(resp);
-        JSONObject object = jsonObject.getJSONObject("result");
-        JSONArray value = object.getJSONArray("vout");
-        JSONObject amount = value.getJSONObject(0);
-        double sent_amount = amount.getInt("amount");
-        JSONObject balance = object.getJSONObject("balance");
-        double balance_amount = (double) balance.getDouble("amount");
-        double fees = (abs(balance_amount) - sent_amount);
-
-        return fees;
+        
+        double fees;
+        
+        if (jsonObject.isNull("result")) {
+        	
+            JSONObject object = jsonObject.getJSONObject("error");
+            String result = object.getString("message");
+            
+            fees = Double.parseDouble(result);
+            
+            
+        } else {
+        	
+        	JSONObject object = jsonObject.getJSONObject("result");
+            JSONArray value = object.getJSONArray("vout");
+            JSONObject amount = value.getJSONObject(0);
+            double sent_amount = amount.getInt("amount");
+            JSONObject balance = object.getJSONObject("balance");
+            double balance_amount = (double) balance.getDouble("amount");
+            fees = (abs(balance_amount) - sent_amount);
+        	
+        }
+       return fees;
     }
     
-
 }
