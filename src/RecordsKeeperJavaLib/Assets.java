@@ -57,14 +57,8 @@ import java.util.Properties;
  * Now we have node authentication credentials.
  */
 
-
-
-
-
-
 public class Assets {
 
-	
 	 public static Properties prop;
 	
 	 public static boolean getPropert() throws IOException {
@@ -88,7 +82,7 @@ public class Assets {
      */
 
 	
-	    public Assets() throws IOException {}
+	  public Assets() throws IOException {}
 	    
 	    /**
 	     * Create Assets on the RecordsKeeper Blockchain.<br>
@@ -104,23 +98,24 @@ public class Assets {
 	     */  
 	    
 	    
-	    public static String createAsset(String address, String asset_name, int asset_qty) throws IOException, JSONException {
+	  public static String createAsset(String address, String asset_name, int asset_qty) throws IOException, JSONException {
 
 	        address = "\"" + address + "\"";
 	        asset_name = "\"" + asset_name + "\"";
-	          
-	        String resp;
 	        
 			String rkuser;
 			String passwd;
 			String chain;
 			String url;
+	        String resp;
 	        if (getPropert() == true) {
 	            url = prop.getProperty("url");
 	            rkuser = prop.getProperty("rkuser");
 	            passwd = prop.getProperty("passwd");
 	            chain = prop.getProperty("chain");
-	        } else {
+	        } 
+	        
+	        else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
@@ -142,9 +137,14 @@ public class Assets {
 	        Response response = client.newCall(request).execute();
 	        resp = response.body().string();
 	        JSONObject jsonObject = new JSONObject(resp);
+	        JSONObject error = new JSONObject();
 	        String txid = "";
-	        if(jsonObject.isNull("result"))
-	            txid = "Asset or stream with this name already exists.";
+	        
+	        if(jsonObject.isNull("result")) {
+	            error = jsonObject.getJSONObject("error");
+	        	txid = error.getString("message");
+	        	
+	        }
 	        else
 	            txid = jsonObject.getString("result");
 
@@ -163,19 +163,14 @@ public class Assets {
 	     * System.out.print(issue_id );         //prints assets issued transaction id</code></p>
 	     * @return It will return all the assets, the count of the assets, issued quantity of assets and issued transaction id of the asset on the RecordsKeeper Blockchain.
 	     */
-	    
-	    
-	    
-	    
+ 
 	    public static JSONObject retrieveAssets() throws IOException, JSONException {
-
-		     
-		    String asset_name;
-		     
+	    	
+	    	String asset_name;
 		    String issue_id;
 		    int issue_qty;
 		    String resp;
-	    	
+
 			String rkuser;
 			String passwd;
 			String chain;
@@ -208,14 +203,16 @@ public class Assets {
 
 	        Response response = client.newCall(request).execute();
 	        resp = response.body().string();
-	        //System.out.println(resp);
+	        
 	        JSONObject jsonObject = new JSONObject(resp);
 	        JSONArray array = jsonObject.getJSONArray("result");
+	        
 	        JSONObject item = new JSONObject();
 	        int asset_count = array.length();
 	        String output = "";
 	        for (int i = 0; i<asset_count; i++) {
-	            JSONObject object = array.getJSONObject(i);
+	            
+	        	JSONObject object = array.getJSONObject(i);
 	            asset_name = object.getString("name");
 	            issue_id = object.getString("issuetxid");
 	            issue_qty = object.getInt("issueraw");
@@ -224,17 +221,16 @@ public class Assets {
 	            item.put("issue_qty", issue_qty);
 	            item.put("asset_count", asset_count);
 	            output = output + item + ",";
+	            
 	        }
 
-	        String out = "{\"Output\":["+output+"]}";
+	        String out = "{\"Assets\":["+output+"]}";
 	        JSONObject object1 = new JSONObject(out);
 	        //System.out.println(object1);
 
 	        return object1;
 	    }
-	    
-	    
-	    
+
 	    /**
 	     * Send Assets on the RecordsKeeper Blockchain.<br>
 	     * sendasset() function is used to send an asset.
@@ -287,12 +283,20 @@ public class Assets {
 	        Response response = client.newCall(request).execute();
 	        resp = response.body().string();
 	        JSONObject jsonObject = new JSONObject(resp);
-	        //System.out.println(resp);
-	        String txid = jsonObject.getString("result");
+	        
+	        JSONObject error = new JSONObject();
+	        String txid = "";
+	        
+	        if(jsonObject.isNull("result")) {
+	            error = jsonObject.getJSONObject("error");
+	        	txid = error.getString("message");
+	        	
+	        }
+	        else {
+	            txid = jsonObject.getString("result");
+	        }
 	        
 	        return txid;
 	    }
-	
-
 
 }
