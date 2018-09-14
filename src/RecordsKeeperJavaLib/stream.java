@@ -84,10 +84,7 @@ public class stream {
      */
    
     public stream() throws IOException {}
-
-	
-    
-    
+ 
     /**
      * Publish <br>
      * The data is converted into hex value.
@@ -102,37 +99,38 @@ public class stream {
      * @return It will return a transaction id of the published data, use this information to retrieve the particular data from the stream
      */
 
-    
-    
     public static String publish(String address, String stream, String key, String data) throws IOException, JSONException {
+    	
     	String datahex;
-    	
-    	
+
     	byte[] byt = data.getBytes("UTF-8");
      	BigInteger big = new BigInteger(byt);
      	String hex = big.toString(16);
-    	    String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	String rkuser;
+    	String passwd;
+		String chain;
+		String url;
+		
+		
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
 	     
-	     String resp;
-	     String txid;
+	    String resp;
+	    String txid;
 
-         OkHttpClient client = new OkHttpClient();
-         MediaType mediaType = MediaType.parse("application/json");
-         String credential = Credentials.basic(rkuser, passwd);
+        OkHttpClient client = new OkHttpClient();
+        MediaType mediaType = MediaType.parse("application/json");
+        String credential = Credentials.basic(rkuser, passwd);
         datahex = "\"" + hex + "\"";
         address = "\"" + address + "\"";
         stream = "\"" + stream + "\"";
@@ -149,10 +147,21 @@ public class stream {
 
         Response response = client.newCall(request).execute();
         resp = response.body().string();
-       // System.out.println(resp);
+        
+        JSONObject error = new JSONObject();
         JSONObject jsonObject = new JSONObject(resp);
-        txid = jsonObject.getString("result");
-
+        
+        if(jsonObject.isNull("result")) {
+            error = jsonObject.getJSONObject("error");
+        	txid = error.getString("message");
+        	
+        }
+        
+        else {
+            txid = jsonObject.getString("result");
+        }
+        
+        
         return txid;
     }
     
@@ -167,35 +176,34 @@ public class stream {
      * @param txid id of the data you want to retrieve
      * @return It will return the item's details like publisher address, key value, confirmations, hexdata and transaction id.
      */
-    
-    
 
     public static String retrieve(String stream, String txid) throws IOException, JSONException {
   
-    	  String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+    	String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	          } 
+	    else  {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
-	        }
-          OkHttpClient client = new OkHttpClient();
-          MediaType mediaType = MediaType.parse("application/json");
-          String credential = Credentials.basic(rkuser, passwd);
-          String raw_data = "";
-          String resp;
-          String data;
+	         }
+        OkHttpClient client = new OkHttpClient();
+        MediaType mediaType = MediaType.parse("application/json");
+        String credential = Credentials.basic(rkuser, passwd);
+        String raw_data = "";
+        String resp;
+        String data;
           
-       stream = "\"" + stream + "\"";
-       txid = "\"" + txid + "\"";
+        stream = "\"" + stream + "\"";
+        txid = "\"" + txid + "\"";
 
         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"getstreamitem\",\"params\":[" + stream + "," + txid + "],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
         Request request = new Request.Builder()
@@ -209,12 +217,25 @@ public class stream {
         Response response = client.newCall(request).execute();
         resp = response.body().string();
         JSONObject jsonObject = new JSONObject(resp);
-        JSONObject object = jsonObject.getJSONObject("result");
-        data = object.getString("data");
-        byte[] bytes = decodeHex(data).toByteArray();
-        raw_data = new String(bytes);
-
+        
+        JSONObject error = new JSONObject();
+        
+        if(jsonObject.isNull("result")) {
+            error = jsonObject.getJSONObject("error");
+            raw_data = error.getString("message");
+        	
+        }
+        
+        else {
+        	
+            JSONObject object = jsonObject.getJSONObject("result");
+            data = object.getString("data");
+            byte[] bytes = decodeHex(data).toByteArray();
+            raw_data = new String(bytes);
+        }
+        
         return raw_data;
+        
     }
 
     
@@ -237,7 +258,7 @@ public class stream {
     
     
     
-    public static JSONObject retrieveWithAddress(String stream, String address) throws IOException, JSONException {
+    public static JSONObject retrieveWithAddress(String stream, String address, int count) throws IOException, JSONException {
 
         stream = "\"" + stream + "\"";
         address = "\"" + address + "\"";
@@ -245,26 +266,31 @@ public class stream {
         String key = "";
         String data = "";
         String raw_data = "";
+        boolean False = false;
         String resp;
-                        String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+           	
+        String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	           } 
+	    
+	    else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
+	    
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json");
         String credential = Credentials.basic(rkuser, passwd);
-        RequestBody body = RequestBody.create(mediaType, "{\"method\":\"liststreampublisheritems\",\"params\":[" + stream + "," + address + "],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
+        RequestBody body = RequestBody.create(mediaType, "{\"method\":\"liststreampublisheritems\",\"params\":[" + stream + "," + address + "," + False + "," + count + "],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
         Request request = new Request.Builder()
                 .url(url)
                 .method("POST", body)
@@ -276,20 +302,36 @@ public class stream {
         Response response = client.newCall(request).execute();
         resp = response.body().string();
         JSONObject jsonObject = new JSONObject(resp);
-        JSONArray array = jsonObject.getJSONArray("result");
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject object = array.getJSONObject(i);
-            key = object.getString("key");
-            data = object.getString("data");
-            byte[] bytes = decodeHex(data).toByteArray();
-            raw_data = new String(bytes);
-            txid = object.getString("txid");
+        
+        JSONObject error = new JSONObject();
+        JSONObject item = new JSONObject();
+        
+        if(jsonObject.isNull("result")) {
+            
+        	error = jsonObject.getJSONObject("error");
+            String check = error.getString("message");
+            item.put("Error", check);
+        	
         }
-        JSONObject item=new JSONObject();
-        item.put("key", key);
-        item.put("data", data);
-        item.put("raw_data", raw_data);
-        item.put("txid", txid); 
+        
+        else {
+        	
+        	JSONArray array = jsonObject.getJSONArray("result");
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject object = array.getJSONObject(i);
+                key = object.getString("key");
+                data = object.getString("data");
+                byte[] bytes = decodeHex(data).toByteArray();
+                raw_data = new String(bytes);
+                txid = object.getString("txid");
+            }
+            
+            item.put("key", key);
+            item.put("data", data);
+            item.put("raw_data", raw_data);
+            item.put("txid", txid); 
+        }
+        
         
         return item;
     }
@@ -310,10 +352,8 @@ public class stream {
      * @param key key value of the published data you want to verify
      * @return It will return the key value, hexdata, raw data and transaction id of the published item.
      */
-    
-    
 
-    public static JSONObject retrieveWithKey(String stream, String key) throws IOException, JSONException {
+    public static JSONObject retrieveWithKey(String stream, String key, int count) throws IOException, JSONException {
 
         stream = "\"" + stream + "\"";
         key = "\"" + key + "\"";
@@ -322,27 +362,33 @@ public class stream {
         String data = "";
         String raw_data = "";
         String resp;
-                        String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
-	            url = Config.getProperty("url");
+        boolean False = false;
+        
+        String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    
+		if (getPropert() == true) {
+	            
+				url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+		
+		else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
+		
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json");
         String credential = Credentials.basic(rkuser, passwd);
-         
-         
-        RequestBody body = RequestBody.create(mediaType, "{\"method\":\"liststreamkeyitems\",\"params\":[" + stream + "," + key + "],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
+  
+        RequestBody body = RequestBody.create(mediaType, "{\"method\":\"liststreamkeyitems\",\"params\":[" + stream + "," + key + "," + False + "," + count + "],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
         Request request = new Request.Builder()
                 .url(url)
                 .method("POST", body)
@@ -354,24 +400,39 @@ public class stream {
         Response response = client.newCall(request).execute();
         resp = response.body().string();
         JSONObject jsonObject = new JSONObject(resp);
-        JSONArray array = jsonObject.getJSONArray("result");
-        JSONObject object1 = array.getJSONObject(0);
-        JSONArray publishers = object1.getJSONArray("publishers");
-        String pubs = publishers.getString(0);
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject object = array.getJSONObject(i);
-            data = object.getString("data");
-            byte[] bytes = decodeHex(data).toByteArray();
-            raw_data = new String(bytes);
-            txid = object.getString("txid");
+        JSONObject item=new JSONObject();
+        JSONObject error = new JSONObject();
+        
+        if(jsonObject.isNull("result")) {
+            
+        	error = jsonObject.getJSONObject("error");
+            String check = error.getString("message");
+            item.put("Error", check);
+        	
+        }
+        
+        else {
+        	
+        	JSONArray array = jsonObject.getJSONArray("result");
+            JSONObject object1 = array.getJSONObject(0);
+            JSONArray publishers = object1.getJSONArray("publishers");
+            String pubs = publishers.getString(0);
+            
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject object = array.getJSONObject(i);
+                data = object.getString("data");
+                byte[] bytes = decodeHex(data).toByteArray();
+                raw_data = new String(bytes);
+                txid = object.getString("txid");
+            }
+            
+            item.put("publisher", pubs);
+            item.put("data", data);
+            item.put("raw_data", raw_data);
+            item.put("txid", txid); 
+        	
         }
 
-        JSONObject item=new JSONObject();
-        item.put("publisher", pubs);
-        item.put("data", data);
-        item.put("raw_data", raw_data);
-        item.put("txid", txid); 
-        
         return item;
         
     }
@@ -396,26 +457,29 @@ public class stream {
         String txid;        
         String raw_data = "";
         String resp;
-                        String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+            
+        String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    
+		if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+		else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
+		
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json");
         String credential = Credentials.basic(rkuser, passwd);
         stream = "\"" + stream + "\"";
-        data = "\"" + data + "\"";
         
         boolean False = false;
 
@@ -431,20 +495,35 @@ public class stream {
         Response response = client.newCall(request).execute();
         resp = response.body().string();
         JSONObject jsonObject = new JSONObject(resp);
-        JSONArray array = jsonObject.getJSONArray("result");
-        for (int i = 0; i < count; i++) {
-            JSONObject object = array.getJSONObject(i);
-            data = object.getString("data");
-            byte[] bytes = decodeHex(data).toByteArray();
-            raw_data = new String(bytes);
-        }
+        
         String result;
-        if (data == null) {
-            result = "Data not found";
-        } else {
-            result = "Data is successfully verified.";
+        JSONObject error = new JSONObject();
+        
+        if(jsonObject.isNull("result")) {
+            
+        	error = jsonObject.getJSONObject("error");
+            result = error.getString("message");
+            	
         }
+        
+        else{
+        	
+        	JSONArray array = jsonObject.getJSONArray("result");
+        	for (int i = 0; i <array.length(); i++) {
+                JSONObject object = array.getJSONObject(i);
+                data = object.getString("data");
+                byte[] bytes = decodeHex(data).toByteArray();
+                raw_data = new String(bytes);
+            }
+           
+            if (data == null) {
+                result = "Data not found";
+            } else {
+                result = "Data is successfully verified.";
+            }
 
+        }
+        
         return result;
     }
 
@@ -475,26 +554,30 @@ public class stream {
         String raw_data = "";
         String resp;
         String key="";
-       String rkuser;
-			String passwd;
-			String chain;
-			String url;
-	        if (getPropert() == true) {
+        
+        String rkuser;
+		String passwd;
+		String chain;
+		String url;
+	    
+		if (getPropert() == true) {
 	            url = Config.getProperty("url");
 	            rkuser = Config.getProperty("rkuser");
 	            passwd = Config.getProperty("passwd");
 	            chain = Config.getProperty("chain");
-	        } else {
+	        } 
+		
+		else {
 	            url = System.getenv("url");
 	            rkuser = System.getenv("rkuser");
 	            passwd = System.getenv("passwd");
 	            chain = System.getenv("chain");
 	        }
+		
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json");
         String credential = Credentials.basic(rkuser, passwd);
         
-
         boolean False = false;
 
         RequestBody body = RequestBody.create(mediaType, "{\"method\":\"liststreamitems\",\"params\":[" + stream + "," + False + "," + count + "],\"id\":1,\"chain_name\":\"" + chain + "\"}\n");
@@ -509,40 +592,53 @@ public class stream {
         Response response = client.newCall(request).execute();
         resp = response.body().string();
         JSONObject jsonObject = new JSONObject(resp);
-        JSONArray array = jsonObject.getJSONArray("result");
-     
-        JSONObject item=new JSONObject();
+        
+        JSONObject item = new JSONObject();
+        JSONObject error = new JSONObject();
         JSONArray arr= new JSONArray();
         
-        
-        for(int i = 0; i<count; i++){
-            JSONObject object = array.getJSONObject(i);
-            JSONArray array1 = object.getJSONArray("publishers");
-            address = array1.getString(0);
-            key = object.getString("key");
-            data = object.getString("data");
-            txid = object.getString("txid");
+        if(jsonObject.isNull("result")) {
             
-            JSONObject jsonObject1 = array.getJSONObject(0);
-            data = jsonObject1.getString("data");
-            byte[] bytes = decodeHex(data).toByteArray();
-            raw_data = new String(bytes);
-            
-           
-            item.put("raw_data", raw_data);
-            item.put("address", address);
-            
-            item.put("txid", txid);
-            item.put("key_value", key);
+        	error = jsonObject.getJSONObject("error");
+            String check = error.getString("message");
+            item.put("Error", check);
             arr.put(item);
+        	
+        }
+        
+        else {
+        	
+            JSONArray array = jsonObject.getJSONArray("result");
+            //System.out.println(array);
+            
+            for(int i = 0; i<array.length(); i++){
+                
+            	JSONObject object = array.getJSONObject(i);
+                JSONArray array1 = object.getJSONArray("publishers");
+                address = array1.getString(0);
+                key = object.getString("key");
+                
+                data = object.getString("data");
+                txid = object.getString("txid");
+                
+                JSONObject jsonObject1 = array.getJSONObject(0);
+                data = jsonObject1.getString("data");
+                byte[] bytes = decodeHex(data).toByteArray();
+                raw_data = new String(bytes);
+                
+               
+                item.put("raw_data", raw_data);
+                item.put("address", address);
+                
+                item.put("txid", txid);
+                item.put("key", key);
+                arr.put(item);
+        	
+            }
             
         }
-
-        
         
         return arr;
-
-     
     }
 
 
