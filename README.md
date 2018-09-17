@@ -66,10 +66,10 @@ For Java applications use the latest published v0.0.1x release:
 ```bash
      <!-- https://mvnrepository.com/artifact/org.recordskeeper.java/RecordsKeeperJavaLib -->
     <dependency>
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.recordskeeper.java</groupId>
-    <artifactId>RecordsKeeperJavaLib</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+        <modelVersion>4.0.0</modelVersion>
+        <groupId>org.recordskeeper.java</groupId>
+        <artifactId>RecordsKeeperJavaLib</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </dependency>
 ``` 
 
