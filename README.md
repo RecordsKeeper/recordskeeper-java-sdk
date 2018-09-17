@@ -59,19 +59,18 @@ Importing user name and password values from config file to authenticate the nod
     rkuser = Config.getProperty("rkuser");
     passwd = Config.getProperty("passwd");
 ``` 
-## Java Applications
+## Java applications
+For Java applications use the latest published v1.3.x releases:
+```
+     <!-- https://mvnrepository.com/artifact/org.hyperledger.java/RecordsKeeperJavaLib -->
+     <dependency>
+         <modelVersion>4.0.0</modelVersion>
+         <groupId>org.recordskeeper.java</groupId>
+         <artifactId>RecordsKeeperJavaLib</artifactId>
+         <version>0.0.1-SNAPSHOT</version>
+     </dependency>
 
-For Java applications use the latest published v0.0.1x release:
-
-```bash
-     <!-- https://mvnrepository.com/artifact/org.recordskeeper.java/RecordsKeeperJavaLib -->
-    <dependency>
-        <modelVersion>4.0.0</modelVersion>
-        <groupId>org.recordskeeper.java</groupId>
-        <artifactId>RecordsKeeperJavaLib</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-``` 
+```
 
 Setting Up Eclipse
 ------------------
