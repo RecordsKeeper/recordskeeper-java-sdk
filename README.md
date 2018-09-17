@@ -60,7 +60,7 @@ Importing user name and password values from config file to authenticate the nod
     passwd = Config.getProperty("passwd");
 ``` 
 ## Java applications
-For Java applications use the latest published v1.3.x releases:
+For Java applications use the latest published v0.0.1 releases:
 ```
      <!-- https://mvnrepository.com/artifact/org.hyperledger.java/RecordsKeeperJavaLib -->
      <dependency>
